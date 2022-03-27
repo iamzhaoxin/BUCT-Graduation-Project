@@ -1,21 +1,33 @@
 spring:
   datasource:
     druid:
-      # \u8FDE\u63A5\u6570\u636E\u5E93
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: 123456
       url: jdbc:mysql://82.157.138.64:3306/YSCGGL?nullCatalogMeansCurrent=true
-      # \u914D\u7F6Edruid
       initial-size: 5
       max-active: 20
-      max-wait: 60000 # \u914D\u7F6E\u83B7\u53D6\u8FDE\u63A5\u7B49\u5F85\u8D85\u65F6\u7684\u65F6\u95F4
-      time-between-eviction-runs-millis: 60000  # \u914D\u7F6E\u95F4\u9694\u591A\u4E45\u624D\u8FDB\u884C\u4E00\u6B21\u68C0\u6D4B\uFF0C\u68C0\u6D4B\u9700\u8981\u5173\u95ED\u7684\u7A7A\u95F2\u8FDE\u63A5\uFF0C\u5355\u4F4D\u662F\u6BEB\u79D2
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
   activiti:
     database-schema-update: true
     db-history-used: true
     history-level: full
     check-process-definitions: true
+  jpa:
+    database: MySQL
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+    # create：每次运行程序时，都会重新创建表，故而数据会丢失
+    # create-drop：每次运行程序时会先创建表结构，然后待程序结束时清空表
+    # update：每次运行程序，没有表时会创建表，如果对象发生改变会更新表结构，原有数据不会清空，只会更新（推荐使用）
+    # validate：运行程序会校验数据与数据库的字段类型是否相同，字段不同会报错
+    # none: 禁用DDL处理
+      ddl-auto: update
+    open-in-view: true
+
+
 
 mybatis-plus:
   global-config:

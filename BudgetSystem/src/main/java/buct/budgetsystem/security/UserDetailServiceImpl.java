@@ -1,5 +1,7 @@
 package buct.budgetsystem.security;
 
+import buct.budgetsystem.pojo.domain.MyUserDetails;
+import buct.budgetsystem.pojo.entity.Role;
 import buct.budgetsystem.pojo.entity.User;
 import buct.budgetsystem.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author: 赵鑫
@@ -23,19 +27,27 @@ import java.util.List;
 @Component
 public class UserDetailServiceImpl implements UserDetailsService {
 
-    @Autowired
-    UserService userService;
+    final UserService userService;
+
+    public UserDetailServiceImpl(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getOneUserById(username);   //Fixme 会不会因为重名导致bug？
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        User user=new User();
+        user.setUserId(userId);
+        user=user.selectById();
+
         if(user == null){
             return null;
         }
+
         log.info("user=={}",user);
-        List<GrantedAuthority> authority = new ArrayList<>();
-        authority.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        return new org.springframework.security.core.userdetails.User(
+        //加载用户权限
+//        Set<Role> userRoles=user.getRoleId();
+        Set<SimpleGrantedAuthority> authority = new HashSet<>();
+        return new MyUserDetails(
                 user.getUserName(),
                 user.getUserPassword(),
                 authority
