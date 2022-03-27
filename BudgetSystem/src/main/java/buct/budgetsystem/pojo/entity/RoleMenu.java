@@ -1,24 +1,35 @@
 package buct.budgetsystem.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-/**@About: 数据库表：ys_user
+/**
+ * 角色权限（多角色-多导航权限）
+ * ys_role_menu
  * @Author: 赵鑫
  * @Date: 2022/3/16 14:31
  */
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleMenu extends Model<RoleMenu>{
 
-    private String roleMenuId;
-    private String roleId;
-    private String menuId;
+    /**
+     * 主键id
+     */
+    @TableId
+    private Integer roleMenuId;
+    /**
+     * 角色id
+     */
+    private Integer roleId;
+    /**
+     * 导航id
+     */
+    private Integer menuId;
 
 }

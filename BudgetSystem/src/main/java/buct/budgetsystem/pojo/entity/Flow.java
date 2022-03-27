@@ -1,30 +1,48 @@
 package buct.budgetsystem.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
- * @About: 数据库表：ys_user
+ * 审核流程
+ * 数据库表：ys_flow
  * @Author: 赵鑫
  * @Date: 2022/3/16 14:31
  */
-
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Flow extends Model<Flow> {
-
-
+    /**
+     * 审核任务id
+     */
+    @TableId
     private String flowId;
+    /**
+     * 经费申请编号
+     */
     private String declarationId;
+    /**
+     * 审核人id
+     */
     private String userId;
+    /**
+     * 审核人姓名
+     */
     private String userName;
+    /**
+     * 审核日期
+     */
     private String flowDate;
+    /**
+     * 审核意见
+     */
     private String flowOpinion;
+    /**
+     * 审核状态：n（n审批）0（驳回）
+     */
     private String flowState;
 
 }

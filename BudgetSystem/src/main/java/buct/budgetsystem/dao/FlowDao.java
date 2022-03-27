@@ -1,0 +1,13 @@
+package buct.budgetsystem.dao;
+
+import buct.budgetsystem.pojo.entity.Flow;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * @Author: 赵鑫
+ * @Date: 2022/3/27 15:31
+ */
+@Mapper
+public interface FlowDao extends BaseMapper<Flow> {
+}

@@ -48,6 +48,13 @@
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter</artifactId>
+            <!-- activiti7和mybatis版本冲突：禁用activiti里的mybatis-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+            </exclusions>
             <version>7.1.99</version>
         </dependency>
 
