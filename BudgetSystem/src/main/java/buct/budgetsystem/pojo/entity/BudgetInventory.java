@@ -20,7 +20,7 @@ public class BudgetInventory extends Model<BudgetInventory> {
      * 经费预算清单id
      */
     @TableId
-    private Integer inventoryId;
+    private Long inventoryId;
     /**
      * 经费编号
      */

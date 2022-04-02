@@ -22,7 +22,7 @@ public class DeclarationDetail extends Model<DeclarationDetail> {
      * 主键id
      */
     @TableId
-    private Integer detailId;
+    private Long detailId;
     /**
      * 经费申请编号
      */

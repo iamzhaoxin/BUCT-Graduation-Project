@@ -21,7 +21,7 @@ public class Budget extends Model<Budget> {
      * 经费预算id
      */
     @TableId
-    private Integer budgetId;
+    private Long budgetId;
     /**
      * 经费编号
      */
@@ -117,13 +117,13 @@ public class Budget extends Model<Budget> {
     /**
      * 备用字符
      */
-    private Double budget_custom_num1;
+    private Double budgetCustomNum1;
     /**
      * 备用字符
      */
-    private Double budget_custom_num2;
+    private Double budgetCustomNum2;
     /**
      * 备用字符
      */
-    private DateTime budget_custom_date;
+    private DateTime budgetCustomNum3;
 }
