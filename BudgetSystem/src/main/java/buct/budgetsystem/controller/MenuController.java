@@ -1,10 +1,10 @@
 package buct.budgetsystem.controller;
 
 import buct.budgetsystem.pojo.entity.Menu;
-import org.springframework.stereotype.Controller;
+import buct.budgetsystem.service.MenuService;
+import buct.budgetsystem.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,9 +17,14 @@ import java.util.List;
 @RequestMapping("/menu")
 public class MenuController {
 
+    private final MenuService menuService;
+    MenuController(MenuService menuService) {
+        this.menuService = menuService;
+    }
+
     @GetMapping
     public List<Menu> selectMenuAll(){
-        return new Menu().selectList(null);
+        return menuService.list();
     }
 
 }

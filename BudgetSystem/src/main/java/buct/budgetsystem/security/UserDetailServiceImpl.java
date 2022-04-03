@@ -19,13 +19,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 废弃
  * @Author: 赵鑫
  * @Date: 2022/3/26 10:53
  */
 
 @Slf4j
-//@Component
+@Component
 public class UserDetailServiceImpl implements UserDetailsService {
 
     final UserService userService;
@@ -52,14 +51,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("登录用户：" + userId + " 不存在");
         }
 
-        log.info("user=={}",user);
-        //加载用户权限
+        log.info("user.id=={}",user.getUserId());
 
-        Set<SimpleGrantedAuthority> authority = new HashSet<>();
-//        return new MyUserDetails(
-//                user,
-//                authority
-//        );
-        return null;
+        return new MyUserDetails(user.getUserId(),user.getUserPassword());
     }
 }
