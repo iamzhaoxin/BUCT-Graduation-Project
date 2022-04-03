@@ -13,7 +13,7 @@ spring:
     database-schema-update: true
     db-history-used: true
     history-level: full
-    check-process-definitions: true
+    check-process-definitions: false
   jpa:
     database: MySQL
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
