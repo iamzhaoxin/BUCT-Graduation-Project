@@ -26,6 +26,10 @@ spring:
     # none: 禁用DDL处理
       ddl-auto: update
     open-in-view: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 server:
   port: 80
   servlet:

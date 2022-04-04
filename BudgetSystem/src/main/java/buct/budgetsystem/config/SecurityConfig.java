@@ -1,5 +1,7 @@
 package buct.budgetsystem.config;
 
+import buct.budgetsystem.handler.LoginAuthenticationFailureHandler;
+import buct.budgetsystem.handler.LoginAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +18,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final LoginAuthenticationSuccessHandler loginSuccessHandler;
+    private final LoginAuthenticationFailureHandler loginFailureHandler;
+
+
+    public SecurityConfig(LoginAuthenticationSuccessHandler loginSuccessHandler, LoginAuthenticationFailureHandler loginFailureHandler) {
+        this.loginSuccessHandler = loginSuccessHandler;
+        this.loginFailureHandler = loginFailureHandler;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()   //禁用跨站csrf攻击防御
@@ -29,11 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("id")
                 //form中密码输入框input的name名，不修改的话默认是password
                 .passwordParameter("password")
-                .defaultSuccessUrl("/menu")
+//                .defaultSuccessUrl("/index")
 //                .successForwardUrl("success.html")
 //                .failureForwardUrl("failure.html")
-//                .successHandler(loginSuccessHandler)
-//                .failureHandler(loginFailureHandler)
+                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandler)
                 .and()
                 .authorizeRequests()
                 //不需要通过登录验证就可以被访问的资源路径
