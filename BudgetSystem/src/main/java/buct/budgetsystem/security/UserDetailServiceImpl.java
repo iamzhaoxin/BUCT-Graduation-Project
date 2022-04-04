@@ -1,22 +1,13 @@
 package buct.budgetsystem.security;
 
 import buct.budgetsystem.pojo.domain.MyUserDetails;
-import buct.budgetsystem.pojo.entity.Role;
 import buct.budgetsystem.pojo.entity.User;
 import buct.budgetsystem.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @Author: 赵鑫
@@ -53,6 +44,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         log.info("user.id=={}",user.getUserId());
 
-        return new MyUserDetails(user.getUserId(),user.getUserPassword());
+        return new MyUserDetails(user);
     }
 }
