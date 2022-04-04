@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -45,17 +46,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .failureForwardUrl("failure.html")
                 .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler)
+
                 .and()
+                //权限校验规则
                 .authorizeRequests()
                 //不需要通过登录验证就可以被访问的资源路径
-                .antMatchers("/login.html", "/login","/config/**", "/css/**", "/fonts/**", "/img/**", "/js/**").permitAll()
+                .antMatchers("/login.html", "/login", "/config/**", "/css/**", "/fonts/**", "/img/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                //让frame页面可以正常使用
-                .headers().frameOptions().disable();
-    }
 
-    //fixme https://blog.csdn.net/nineya_com/article/details/110292376
+                .and()
+                //Session管理
+                .sessionManagement()
+                // 需要时创建Session
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                // Session超时 跳转登陆页面
+                .invalidSessionUrl("/login");
+    }
 
     /**
      * 密码加密器

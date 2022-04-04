@@ -25,15 +25,15 @@ public class LoginAuthenticationFailureHandler implements AuthenticationFailureH
         Result result = new Result();
         if (exception instanceof UsernameNotFoundException) {
             // 用户不存在
-            result.setCode(200);
+            result.setCode(204);
             result.setMessage(exception.getMessage());
         } else if (exception instanceof BadCredentialsException) {
             // 密码错误
-            result.setCode(200);
+            result.setCode(206);
             result.setMessage(exception.getMessage());
         } else if (exception instanceof LockedException) {
             // 用户被锁
-            result.setCode(200);
+            result.setCode(205);
             result.setMessage(exception.getMessage());
         } else {
             // 系统错误

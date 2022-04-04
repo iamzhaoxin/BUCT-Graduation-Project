@@ -34,6 +34,11 @@ server:
   port: 80
   servlet:
     context-path: /
+    session:
+      timeout: 30s # Session的超时时间,默认最小1分钟,小于1分钟也是1分钟
+      cookie:
+        http-only: true # 浏览器脚本无法访问cookie 安全
+        secure: false #必须用https才能发送cookie
 
 
 mybatis-plus:
