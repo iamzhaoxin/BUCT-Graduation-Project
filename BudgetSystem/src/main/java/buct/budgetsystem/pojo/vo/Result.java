@@ -1,5 +1,6 @@
 package buct.budgetsystem.pojo.vo;
 
+import buct.budgetsystem.pojo.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,6 @@ import lombok.NoArgsConstructor;
 public class Result {
     private int code;
     private String message;
+
+    private User user;
 }

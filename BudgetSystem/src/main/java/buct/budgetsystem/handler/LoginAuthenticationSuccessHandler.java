@@ -34,7 +34,12 @@ public class LoginAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         log.info("{} login",((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getUserId());
-        //fixme 登陆成功后无法重定向到一级路径 & index.html无法加载
-        super.onAuthenticationSuccess(request, response, authentication);
+//        super.onAuthenticationSuccess(request, response, authentication);
+        Result result = new Result();
+        result.setCode(200);
+        result.setMessage("login success");
+        result.setUser(((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(JSONObject.toJSONString(result));
     }
 }

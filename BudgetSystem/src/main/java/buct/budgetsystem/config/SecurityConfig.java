@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //这里的名字和登录表单form中action的地址一致，就可以调框架自带的登录
                 .loginProcessingUrl("/login")
                 //登录表单form中用户名输入框input的name名，不修改的话默认是username
-                .usernameParameter("id")
+                .usernameParameter("username")
                 //form中密码输入框input的name名，不修改的话默认是password
                 .passwordParameter("password")
 //                .defaultSuccessUrl("/index")
