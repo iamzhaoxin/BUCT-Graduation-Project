@@ -1,6 +1,7 @@
 package buct.budgetsystem.dao;
 
 import buct.budgetsystem.pojo.entity.User;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +33,13 @@ public class UserTest {
     @Test
     void selectAllUserTest(){
         assertNotNull(new User().selectAll(), "user.selectAll()");
+    }
+
+    @Test
+    void getPageTest(@Autowired UserDao userDao){
+        Page<User> page=new Page<>(1,10);
+        userDao.selectPage(page, null);
+        System.out.println(page.getTotal());
     }
 
 }

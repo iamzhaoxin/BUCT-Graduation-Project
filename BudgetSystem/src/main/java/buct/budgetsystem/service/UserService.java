@@ -2,8 +2,8 @@ package buct.budgetsystem.service;
 
 import buct.budgetsystem.dao.UserDao;
 import buct.budgetsystem.pojo.entity.User;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,4 +13,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService extends ServiceImpl<UserDao, User> {
+
+    private final UserDao userDao;
+
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public Page<User> getPage(int pageNumber, int pageSize){
+        Page<User> page=new Page<>(pageNumber,pageSize);
+        userDao.selectPage(page, null);
+        return page;
+    }
 }
