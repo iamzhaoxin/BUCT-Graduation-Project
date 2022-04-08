@@ -7,6 +7,7 @@ import buct.budgetsystem.pojo.entity.User;
 import buct.budgetsystem.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import java.util.List;
  * @Date: 2022/4/1 23:34
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/menu")
 public class MenuController {
 
