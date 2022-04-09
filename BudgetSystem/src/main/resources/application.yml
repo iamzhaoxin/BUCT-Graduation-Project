@@ -30,10 +30,15 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+
 server:
   port: 8080
   servlet:
-    context-path: /
+    context-path: /api/
     session:
       timeout: 30s # Session的超时时间,默认最小1分钟,小于1分钟也是1分钟
       cookie:

@@ -33,6 +33,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        log.info("登录验证");
         User user=new User();
         user.setUserId(userId);
         user=user.selectById();

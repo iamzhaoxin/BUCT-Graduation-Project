@@ -62,5 +62,5 @@ public class User extends Model<User> {
     /**
      * 用户角色
      */
-    private int roleId;
+    private Integer roleId;
 }
