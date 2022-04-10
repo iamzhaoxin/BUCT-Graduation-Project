@@ -48,10 +48,7 @@ public class ExcelUtil {
             if (row != null) {
                 int index=0;
                 User user = new User();
-                if (row.getCell(index)!=null){
-                    user.setUserId(row.getCell(index).toString());
-                }
-                index++;
+                user.setUserId(row.getCell(index++).toString());
                 user.setUserName(row.getCell(index++).toString());
                 user.setUserPassword(passwordEncoder.encode(row.getCell(index++).toString()));
                 user.setUserNameReal(row.getCell(index++).toString());
@@ -63,7 +60,8 @@ public class ExcelUtil {
                 user.setUserEmail(row.getCell(index++).toString());
                 user.setUnitId(row.getCell(index++).toString());
                 user.setUnitName(row.getCell(index++).toString());
-                user.setRoleId(Integer.parseInt(row.getCell(index).toString()));
+//                user.setRoleId(Integer.parseInt(row.getCell(index).toString()));
+                user.setRoleId(Double.valueOf((row.getCell(index).toString())).intValue());
                 userList.add(user);
             }
         }

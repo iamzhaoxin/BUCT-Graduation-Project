@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     final UserService userService;
-
     public UserDetailServiceImpl(UserService userService) {
         this.userService = userService;
     }

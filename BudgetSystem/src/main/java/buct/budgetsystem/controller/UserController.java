@@ -64,23 +64,25 @@ public class UserController {
     public Result getAllUser(int pageNumber, int pageSize, HttpServletRequest request){
         log.info("访问了getAllUser接口");
         String token = request.getHeader("token");
-        token=decode(token,StandardCharsets.UTF_8);
-        System.out.println(token);
         if(token ==null){
-            //未登录
+            //未登录状态码：419
             return new Result(419, "no token",null,null);
         }
+        token=decode(token,StandardCharsets.UTF_8);
+        System.out.println(token);
         return new Result(200,"response success",userService.getPage(pageNumber,pageSize),null);
     }
 
     @PostMapping("/upload")
-    public Result uploadToAddUser(MultipartFile file) throws Exception{
+    public Result uploadToAddUser(MultipartFile file, HttpServletRequest request) throws Exception{
+        // 解析Excel
         String fileName = file.getOriginalFilename();
         log.info("get file: {}",fileName);
         if(fileName==null || (!fileName.endsWith(".xls")&&!fileName.endsWith(".xlsx"))){
             return new Result(210,"文件名不存在或格式有误！",null,null);
         }
         List<User> userList = ExcelUtil.excelToUserList(fileName.substring(fileName.length()-4),file.getInputStream());
+        // 导入数据库
         for(User user : userList){
             userService.save(user);
         }

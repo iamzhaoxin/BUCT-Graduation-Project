@@ -15,14 +15,17 @@ import org.springframework.stereotype.Service;
 public class UserService extends ServiceImpl<UserDao, User> {
 
     private final UserDao userDao;
-
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
 
+    /**
+     * 分页查询
+     */
     public Page<User> getPage(int pageNumber, int pageSize){
         Page<User> page=new Page<>(pageNumber,pageSize);
         userDao.selectPage(page, null);
         return page;
     }
+
 }

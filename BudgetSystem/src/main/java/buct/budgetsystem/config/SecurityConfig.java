@@ -35,6 +35,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()   //禁用跨站csrf攻击防御
                 .formLogin()
+                .loginProcessingUrl("/login")
+                //登录表单form中用户名输入框input的name名，不修改的话默认是username
+                .usernameParameter("username")
+                //form中密码输入框input的name名，不修改的话默认是password
+                .passwordParameter("password")
+                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandler)
+                .and()
+                //权限校验规则
+                .authorizeRequests()
+                //不需要通过登录验证就可以被访问的资源路径
+                .antMatchers("/login.html", "/login", "/config/**", "/css/**", "/fonts/**", "/img/**", "/js/**")
+                .permitAll()
+                .anyRequest().permitAll()
+                .and()
+                //Session管理
+                .sessionManagement()
+                // 需要时创建Session
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                // Session超时 跳转登陆页面
+                .invalidSessionUrl("/login");
+
+    }
+
+/*    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()   //禁用跨站csrf攻击防御
+                .formLogin()
                 //用户未登录时，访问任何资源都转跳到该路径，即登录页面; 这个页面必须要放在resources/resources里，否则提交不会生效，估计是安全框架的机制
                 //如果注释掉，则使用默认的登录页
 //                .loginPage("/login.html")
@@ -65,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Session超时 跳转登陆页面
                 .invalidSessionUrl("/login");
 
-    }
+    }*/
 
     /**
      * 密码加密器
