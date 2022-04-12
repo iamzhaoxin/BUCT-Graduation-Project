@@ -36,8 +36,7 @@ public class ExcelUtil {
         }
         List<User> userList = new LinkedList<>();
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        // 开始解析
-        // 读取sheet0
+        // 开始解析Excel
         Sheet sheet = workbook.getSheetAt(0);
         //第一行是列名，所以不读
         int firstRowIndex = sheet.getFirstRowNum()+1;

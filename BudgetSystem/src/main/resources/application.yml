@@ -22,10 +22,6 @@ spring:
     multipart:
       enabled: true
       max-file-size: 20MB
-
-
-
-
 server:
   port: 8080
   servlet:
@@ -35,7 +31,6 @@ server:
       cookie:
         http-only: true # 浏览器脚本无法访问cookie 安全
         secure: false #必须用https才能发送cookie
-
 mybatis-plus:
   global-config:
     db-config:
