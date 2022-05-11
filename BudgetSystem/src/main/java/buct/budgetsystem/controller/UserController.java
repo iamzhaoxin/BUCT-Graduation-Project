@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -61,14 +62,14 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public Result getAllUser(int pageNumber, int pageSize, HttpServletRequest request){
+    public Result getAllUser(int pageNumber, int pageSize, HttpServletRequest request) throws UnsupportedEncodingException {
         log.info("访问了getAllUser接口");
         String token = request.getHeader("token");
         if(token ==null){
             //未登录状态码：419
             return new Result(419, "no token",null,null);
         }
-        token=decode(token,StandardCharsets.UTF_8);
+        token=decode(token, String.valueOf(StandardCharsets.UTF_8));
         System.out.println(token);
         return new Result(200,"response success",userService.getPage(pageNumber,pageSize),null);
     }
@@ -78,9 +79,7 @@ public class UserController {
         // 解析Excel
         String fileName = file.getOriginalFilename();
         log.info("get file: {}",fileName);
-        if(fileName==null || (!fileName.endsWith(".xls")&&!fileName.endsWith(".xlsx"))){
-            return new Result(210,"文件名不存在或格式有误！",null,null);
-        }
+        assert fileName != null;
         List<User> userList = ExcelUtil.excelToUserList(fileName.substring(fileName.length()-4),file.getInputStream());
         // 导入数据库
         for(User user : userList){

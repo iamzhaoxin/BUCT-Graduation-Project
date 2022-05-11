@@ -14,7 +14,7 @@
     <name>BudgetSystem</name>
     <description>BudgetSystem</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -115,11 +115,11 @@
     </build>
 
     <repositories>
-<!--        <repository>-->
-<!--            <id>aliyun-releases</id>-->
-<!--            <name>阿里云仓库</name>-->
-<!--            <url>https://maven.aliyun.com/repository/public</url>-->
-<!--        </repository>-->
+        <repository>
+            <id>aliyun-releases</id>
+            <name>阿里云仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
         <repository>
             <id>alfresco</id>
             <name>Activiti Releases</name>
