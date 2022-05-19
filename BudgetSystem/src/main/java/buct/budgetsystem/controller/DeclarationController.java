@@ -13,6 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/budget")
@@ -66,6 +70,27 @@ public class DeclarationController {
         declarationDetailService.saveOrUpdate(declarationDetail);
 
         return new Result(200,"success",null,null);
+    }
+
+    @GetMapping("/delete")
+    public Result deleteDeclaration(@RequestParam Integer declarationId){
+        Integer assetId=declarationDetailService.getAssetIdByDeclarationId(declarationId);
+        declarationService.removeById(declarationId);
+        declarationDetailService.removeById(assetId);
+        return new Result(200,"success",null,null);
+    }
+
+    @GetMapping("/ones")
+    public Result getOnesAllDeclaration(@RequestParam Integer userId){
+        Integer[] declarationIds=declarationService.getIdsByUserId(userId);
+        ArrayList<HashMap<String,Object>> arrayList=new ArrayList<>();
+        for(Integer declarationId : declarationIds){
+            HashMap map=new HashMap<>();
+            map.put("declaration",declarationService.getById(declarationId));
+            map.put("asset",declarationDetailService.getDetailByDeclarationId(declarationId));
+            arrayList.add(map);
+        }
+        return new Result(200,"success",arrayList,null);
     }
 
 }

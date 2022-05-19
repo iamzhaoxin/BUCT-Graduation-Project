@@ -1,17 +1,15 @@
 <template>
-  <div v-if="show">
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
 import {localGet, localRemove} from "@/utils";
-import {provide, ref,nextTick} from "vue";
+import {ref} from "vue";
 
 export default {
   name: 'App',
   setup() {
-    let show=ref('true')
+    let show = ref('true')
 
     // 取消勾选自动登录时，删除用户信息
     window.onbeforeunload = function () {
@@ -20,19 +18,8 @@ export default {
       }
     }
 
-    function refreshView(){
-      show=false
-      console.log("refreshView!")
-      nextTick(()=>{
-        show=true
-      })
-    }
-    // 传给子组件refreshView函数
-    provide('refreshView',refreshView)
-
-    return{
+    return {
       show,
-      refreshView
     }
   }
 }

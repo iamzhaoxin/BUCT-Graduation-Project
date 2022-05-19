@@ -6,18 +6,26 @@ import buct.budgetsystem.pojo.entity.Declaration;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 public class DeclarationService extends ServiceImpl<DeclarationDao,Declaration> {
-//    private final DeclarationDao declarationDao;
-//    private final DeclarationDetailDao declarationDetailDao;
-//
-//    public DeclarationService(DeclarationDao declarationDao, DeclarationDetailDao declarationDetailDao) {
-//        this.declarationDao = declarationDao;
-//        this.declarationDetailDao = declarationDetailDao;
-//    }
-//
-//    public boolean insertDecalration(Declaration declaration){
-//        // 用MP里的saveOrUpdate代替
-//        return true;
-//    }
+    private final DeclarationDao declarationDao;
+    private final DeclarationDetailDao declarationDetailDao;
+
+    public DeclarationService(DeclarationDao declarationDao, DeclarationDetailDao declarationDetailDao) {
+        this.declarationDao = declarationDao;
+        this.declarationDetailDao = declarationDetailDao;
+    }
+
+    public Integer[] getIdsByUserId(Integer userId){
+        return declarationDao.getIdsByUserId(userId);
+    }
+
+    public Declaration[] getDeclarationsByUserId(Integer userId){
+        return declarationDao.getDeclarationsByUserId(userId);
+    }
+
+
+
 }

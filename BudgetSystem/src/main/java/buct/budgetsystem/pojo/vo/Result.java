@@ -18,4 +18,6 @@ public class Result {
     private String message;
     private Object data;
     private User user;
+
+
 }

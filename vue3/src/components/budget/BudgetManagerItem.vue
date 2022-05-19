@@ -5,24 +5,24 @@
       <el-card style="{width: 100% !important}" shadow="always">
         <template #header>
           <div class="clear-fix">
-            <span>经费申请</span>
+            <span>{{ budgetData['declaration'].declarationName }}</span>
           </div>
         </template>
         <el-row>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="申请时间" prop="applyDate" class="label-right-align">
-              <el-date-picker v-model="budgetData.applyDate" type="date" class="full-width-input"
+              <el-date-picker v-model="budgetData['declaration'].declarationDate" type="date" class="full-width-input"
                               format="YYYY-MM-DD" value-format="YYYY-MM-DD" clearable></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="经费申请名称" prop="applyName" class="label-right-align">
-              <el-input v-model="budgetData.applyName" type="text" clearable></el-input>
+              <el-input v-model="budgetData['declaration'].declarationName" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="3" class="grid-cell">
             <el-form-item label="经费类别" prop="applyType" class="label-right-align">
-              <el-select v-model="budgetData.applyType" class="full-width-input" clearable>
+              <el-select v-model="budgetData['declaration'].declarationType" class="full-width-input" clearable>
                 <el-option v-for="(item, index) in applyTypeAlternative" :key="index" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
@@ -30,7 +30,7 @@
           </el-col>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="申请类别" prop="applyCategory" class="label-right-align">
-              <el-select v-model="budgetData.applyCategory" class="full-width-input" clearable>
+              <el-select v-model="budgetData['declaration'].declarationCategory" class="full-width-input" clearable>
                 <el-option v-for="(item, index) in applyCategoryAlternative" :key="index" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
@@ -38,37 +38,38 @@
           </el-col>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="经费来源" prop="amountFrom" class="label-right-align">
-              <el-input v-model="budgetData.amountFrom" type="text" clearable></el-input>
+              <el-input v-model="budgetData['declaration'].budgetSource" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="预算年度" prop="amountYear" class="label-right-align">
-              <el-input v-model="budgetData.amountYear" type="text" clearable></el-input>
+              <el-input v-model="budgetData['declaration'].budgetYear" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5" class="grid-cell">
             <el-form-item label="申请金额" prop="applyAmount" class="label-right-align">
-              <el-input v-model="budgetData.applyAmount" type="text" placeholder="人民币（元）" clearable></el-input>
+              <el-input v-model="budgetData['declaration'].declarationAmount" type="text" placeholder="人民币（元）"
+                        clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5" class="grid-cell">
             <el-form-item label="申请人工号" prop="applyUserId" class="label-right-align">
-              <el-input v-model="budgetData.applyUserId" type="text" clearable></el-input>
+              <el-input v-model="budgetData['declaration'].userIdApply" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5" class="grid-cell">
             <el-form-item label="负责人工号" prop="programPrincipalId" class="label-right-align">
-              <el-input v-model="budgetData.programPrincipalId" type="text" clearable></el-input>
+              <el-input v-model="budgetData['declaration'].unitPrincipalIdApply" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5" class="grid-cell">
             <el-form-item label="所属部门" prop="applyUnit" class="label-right-align">
-              <el-input v-model="budgetData.applyUnit" class="full-width-input" clearable></el-input>
+              <el-input v-model="budgetData['declaration'].unitName" class="full-width-input" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="是否进口" prop="ifImport" class="label-right-align">
-              <el-select v-model="budgetData.ifImport" class="full-width-input" clearable>
+              <el-select v-model="budgetData['declaration'].declarationIsImport" class="full-width-input" clearable>
                 <el-option v-for="(item, index) in importAlternative" :key="index" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
@@ -76,125 +77,104 @@
           </el-col>
           <el-col :span="24" class="grid-cell">
             <el-form-item label="申请理由" prop="applySeason" class="label-right-align">
-              <el-input type="textarea" v-model="budgetData.applySeason" rows="4"></el-input>
+              <el-input type="textarea" v-model="budgetData['declaration'].declarationReason" rows="4"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24" class="grid-cell">
             <el-form-item label="备注" prop="applySeason" class="label-right-align">
-              <el-input type="textarea" v-model="budgetData.applyRemark" rows="1"></el-input>
+              <el-input type="textarea" v-model="budgetData['declaration'].declarationRemark" rows="1"></el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-      </el-card>
-    </div>
 
-    <br>
+          <el-divider/>
 
-    <div class="card-container">
-      <el-card style="{width: 100% !important}" shadow="never">
-        <template #header>
-          <div class="clear-fix">
-            <span>申请资产明细</span>
-            <i class="float-right el-icon-arrow-down"></i>
-          </div>
-        </template>
-        <el-row>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="资产名称" prop="detailAssetName" class="label-right-align">
-              <el-input v-model="budgetData.detailAssetName" type="text" clearable></el-input>
+              <el-input v-model="budgetData['asset'].detailAssetName" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="3" class="grid-cell">
             <el-form-item label="存放地点" prop="storage" class="label-right-align">
-              <el-input v-model="budgetData.storage" type="text" clearable></el-input>
+              <el-input v-model="budgetData['asset'].storageName" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="资产型号" prop="detailAssetModel" class="label-right-align">
-              <el-input v-model="budgetData.detailAssetModel" type="text" clearable></el-input>
+              <el-input v-model="budgetData['asset'].detailAssetModel" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4" class="grid-cell">
             <el-form-item label="资产规格" prop="detailAssetSpec" class="label-right-align">
-              <el-input v-model="budgetData.detailAssetSpec" type="text" clearable></el-input>
+              <el-input v-model="budgetData['asset'].detailAssetSpec" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="3" class="grid-cell">
             <el-form-item label="数量" prop="detailAssetCount" class="label-right-align">
-              <el-input-number v-model="budgetData.detailAssetCount" class="full-width-input"
+              <el-input-number v-model="budgetData['asset'].detailAssetCount" class="full-width-input"
                                controls-position="right" :min="0" :max="100000000000" :precision="0" :step="1">
               </el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="3" class="grid-cell">
             <el-form-item label="计量单位" prop="detailAssetUnit" class="label-right-align">
-              <el-input v-model="budgetData.detailAssetUnit" type="text" clearable></el-input>
+              <el-input v-model="budgetData['asset'].detailAssetUnit" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="3" class="grid-cell">
             <el-form-item label="单价" prop="detailAssetPrice" class="label-right-align">
-              <el-input v-model="budgetData.detailAssetPrice" type="text" clearable></el-input>
+              <el-input v-model="budgetData['asset'].detailAssetPrice" type="text" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24" class="grid-cell">
             <el-form-item label="备注" prop="detailRemark" class="label-right-align">
-              <el-input type="textarea" v-model="budgetData.detailRemark" rows="2"></el-input>
+              <el-input type="textarea" v-model="budgetData['asset'].detailMark" rows="2"></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="24" class="grid-cell">
+            <el-button style="float: right" type="danger" @click="deleteBudget" plain>撤销申请</el-button>
+          </el-col>
+
         </el-row>
       </el-card>
-    </div>
-    <br>
-    <div class="static-content-item" style="float: right">
-<!--      todo-->
-<!--      <el-button type="warning" plain>增加资产明细卡片</el-button>-->
-      <el-button type="info" plain>保存申请</el-button>
-      <el-button type="success" @click="submitForm" plain>提交申请</el-button>
-      <el-button type="danger" @click="refresh" plain>清空表单</el-button>
+      <br>
+      <br>
     </div>
   </el-form>
 
 </template>
 
 <script>
-import {defineComponent, getCurrentInstance, reactive, toRefs} from 'vue'
-import {localGet} from "@/utils";
-import {ElMessage} from "element-plus";
+
+
+import {reactive, toRef, toRefs} from "vue";
 import axios from "@/utils/axios";
+import {ElMessage} from "element-plus";
 
-export default defineComponent({
-  components: {},
-  props: {},
-  setup() {
-    const state = reactive({
-      budgetData: {
-        // 经费申请
-        applyDate: getCurrDate(),
-        applyName: "",
-        applyType: "科研",
-        applyCategory: "常规类",
-        amountFrom:"",
-        amountYear:new Date().getFullYear(),
-        applyAmount: "",
-        applyUserId: localGet(`token`).userId,
-        programPrincipalId:"",
-        // todo 设置为根据工号动态查询所属部门
-        applyUnit: localGet(`token`).unitName,
-        ifImport:"",
-        applySeason: "",
-        applyRemark:"",
-
-        // 资产明细
-        detailAssetName: "",
-        // fixme 验证storage是否存在，或者改成下拉选择
-        storage:"",
-        detailAssetModel:"",
-        detailAssetSpec: "",
-        detailAssetCount: 0,
-        detailAssetUnit: "",
-        detailAssetPrice: "",
-        detailRemark:"",
+export default {
+  name: "BudgetManagerItem",
+  props: {
+    budgetItem: {
+      asset: {
+        detailAssetId: Number,
+        declarationId: Number,
+        declarationName: String,
+        detailAssetName: String,
+        unitId: String,
+        unitName: String,
+        detailAssetModel: String,
+        detailAssetSpec: String,
+        storageName: String,
+        detailAssetCount: String,
+        detailAssetUnit: String,
+        detailAssetPrice: String,
+        detailMark: String,
       },
+      declaration: Object,
+    }
+  },
+  setup(props) {
+    const state = reactive({
+      budgetData: toRef(props, "budgetItem"),
       rules: {
         applyAmount: [{
           pattern: /^\d+(\.\d+)?$/,
@@ -235,54 +215,29 @@ export default defineComponent({
         "value": "否"
       }],
     })
-    const { proxy } = getCurrentInstance();
-    const submitForm = () => {
-      proxy.$refs['BudgetInsert'].validate(valid => {
-        if (!valid){
-          ElMessage.error("填写错误")
-          return
-        }
-        axios
-            .post('/api/budget/insert',state.budgetData)
-            .then(()=>{
-              ElMessage.success("提交成功")
-              proxy.$refs['BudgetInsert'].resetFields()
-            })
-            .catch((error)=>{
-              ElMessage.error(error.toString())
-              console.log(error)
-            })
-      })
+
+    state.budgetData['declaration'].declarationDate.slice(0, 10)
+    console.log("Item.Vue show:")
+    console.log(state.budgetData.declaration.declarationDate)
+
+    function deleteBudget() {
+      axios.get('/api/budget/delete?declarationId=' + state.budgetData.declaration.declarationId)
+          .then(() => {
+            ElMessage.success("删除成功")
+            location.reload();
+          })
+          .catch((error) => {
+            ElMessage.error(error.toString())
+            console.log(error)
+          })
     }
-    /**
-     * 获得当前日期（年-月-日）
-     */
-    function getCurrDate() {
-      var date = new Date();
-      var sep = "-";
-      var year = date.getFullYear(); //获取完整的年份(4位)
-      var month = date.getMonth() + 1; //获取当前月份(0-11,0代表1月)
-      var day = date.getDate(); //获取当前日
-      if (month <= 9) {
-        month = "0" + month;
-      }
-      if (day <= 9) {
-        day = "0" + day;
-      }
-      return year + sep + month + sep + day;
-    }
-    // 重置表单
-    function refresh(){
-      proxy.$refs['BudgetInsert'].resetFields()
-    }
+
     return {
       ...toRefs(state),
-      submitForm,
-      refresh
+      deleteBudget,
     }
   }
-})
-
+}
 </script>
 
 <style lang="scss">
@@ -352,7 +307,8 @@ div.table-container {
   }
 }
 
-div.tab-container {}
+div.tab-container {
+}
 
 .label-left-align :deep(.el-form-item__label) {
   text-align: left;
@@ -366,7 +322,8 @@ div.tab-container {}
   text-align: right;
 }
 
-.custom-label {}
+.custom-label {
+}
 
 .static-content-item {
   min-height: 20px;

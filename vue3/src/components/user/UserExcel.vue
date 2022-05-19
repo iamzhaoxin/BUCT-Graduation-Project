@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import {inject, onMounted, reactive, ref, toRefs} from 'vue'
+import {onMounted, reactive, ref, toRefs} from 'vue'
 import axios from '@/utils/axios'
 import {ElMessage} from 'element-plus'
 
@@ -155,12 +155,12 @@ export default {
           })
           .then(response => {
             //将分页数据保存
-            state.tableData = response.data.records.filter(user=>{
-              user.userBirthdate=user.userBirthdate.slice(0,10)
-              if(user.roleId===0){
-                user.roleId='管理员'
-              }else{
-                user.roleId='其他'
+            state.tableData = response.data.records.filter(user => {
+              user.userBirthdate = user.userBirthdate.slice(0, 10)
+              if (user.roleId === 0) {
+                user.roleId = '管理员'
+              } else {
+                user.roleId = '其他'
               }
               return user
             })
@@ -212,11 +212,7 @@ export default {
     }
     const uploadSuccessHandler = () => {
       ElMessage.success("文件上传成功")
-      // this.$forceUpdate()
-      inject('refreshView')
-      // todo 尝试使用inject刷新
-      // k++;
-      // console.log("文件上传成功，强制刷新ing"+k)
+      location.reload();
     }
     const uploadErrorHandler = () => {
       ElMessage.error("上传文件失败")

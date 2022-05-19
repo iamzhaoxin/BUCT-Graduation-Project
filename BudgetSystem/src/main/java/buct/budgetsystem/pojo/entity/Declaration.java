@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.*;
-import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -16,6 +15,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Declaration extends Model<Declaration> {
@@ -131,11 +131,11 @@ public class Declaration extends Model<Declaration> {
     /**
      * 备用字符
      */
-    private DateTime declarationCustomDate1;
+    private Date declarationCustomDate1;
     /**
      * 备用字符
      */
-    private DateTime declarationCustomDate2;
+    private Date declarationCustomDate2;
 
     public Declaration(Integer declarationId, String declarationName, String declarationType, String unitId,
                        String unitName, String userIdApply, String userNameApply, String userCellphoneApply,

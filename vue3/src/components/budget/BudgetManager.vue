@@ -10,104 +10,9 @@
         <GlobalHeader/>
       </el-header>
       <el-main>
-<!--        <template>-->
-          <el-form :model="formData" ref="vForm" :rules="rules" label-position="left" label-width="80px"
-                   size="default" @submit.prevent>
-            <div class="card-container">
-              <el-card style="{width: 100% !important}" shadow="never">
-                <template #header>
-                  <div class="clear-fix">
-                    <span>xxx申请名称</span>
-                    <i class="float-right el-icon-arrow-down"></i>
-                  </div>
-                </template>
-                <el-row>
-                  <el-col :span="5" class="grid-cell">
-                    <el-form-item label="申请时间" prop="date76380" class="label-right-align">
-                      <el-date-picker v-model="formData.date76380" type="date" class="full-width-input"
-                                      format="YYYY-MM-DD" value-format="YYYY-MM-DD" clearable></el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="3" class="grid-cell">
-                    <el-form-item label="经费类别" prop="input45949" class="label-right-align">
-                      <el-input v-model="formData.input45949"  type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="3" class="grid-cell">
-                    <el-form-item label="申请金额" prop="input33006" class="label-right-align">
-                      <el-input v-model="formData.input33006"  type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="3" class="grid-cell">
-                    <el-form-item label="申请人" prop="input112528" class="label-right-align">
-                      <el-input v-model="formData.input112528" type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="4" class="grid-cell">
-                    <el-form-item label="部门" prop="input64599" class="label-right-align">
-                      <el-input v-model="formData.input64599" type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="3" class="grid-cell">
-                    <div class="static-content-item">
-                      <el-button style="display:block;margin:0 auto" type="primary">修改申请</el-button>
-                    </div>
-                  </el-col>
-                  <el-col :span="3" class="grid-cell">
-                    <div class="static-content-item">
-                      <el-button type="danger">撤销申请</el-button>
-                    </div>
-                  </el-col>
-                </el-row>
-                <div class="static-content-item">
-                  <el-divider direction="horizontal"></el-divider>
-                </div>
-                <el-row>
-                  <el-col :span="7" class="grid-cell">
-                    <el-form-item label="资产" prop="input33198" class="label-right-align">
-                      <el-input v-model="formData.input33198"  type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="7" class="grid-cell">
-                    <el-form-item label="型号" prop="input62136" class="label-right-align">
-                      <el-input v-model="formData.input62136" type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="5" class="grid-cell">
-                    <el-form-item label="数量" prop="input83311" class="label-right-align">
-                      <el-input v-model="formData.input83311" type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="5" class="grid-cell">
-                    <el-form-item label="单价" prop="input93979" class="label-right-align">
-                      <el-input v-model="formData.input93979" type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="7" class="grid-cell">
-                    <el-form-item label="资产" prop="input40198" class="label-right-align">
-                      <el-input v-model="formData.input40198"  type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="7" class="grid-cell">
-                    <el-form-item label="型号" prop="input53544" class="label-right-align">
-                      <el-input v-model="formData.input53544"  type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="5" class="grid-cell">
-                    <el-form-item label="数量" prop="input22054" class="label-right-align">
-                      <el-input v-model="formData.input22054"  type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="5" class="grid-cell">
-                    <el-form-item label="单价" prop="input104872" class="label-right-align">
-                      <el-input v-model="formData.input104872"  type="text" clearable></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-              </el-card>
-            </div>
-          </el-form>
-<!--        </template>-->
+        <div v-for="(budgetItem,index) of budgetList" :key="index">
+          <BudgetManagerItem :budgetItem="budgetItem"/>
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -117,52 +22,72 @@
 
 import GlobalAside from "@/components/page/GlobalAside";
 import GlobalHeader from "@/components/page/GlobalHeader";
+import BudgetManagerItem from "@/components/budget/BudgetManagerItem";
 import {
-  defineComponent,
-  toRefs,
-  reactive,
-  getCurrentInstance
+  defineComponent, reactive, toRefs,
 }
   from 'vue'
+import axios from "@/utils/axios";
+import {localGet} from "@/utils";
+import {ElMessage} from "element-plus";
 export default defineComponent({
   name: "BudgetManager",
   components: {
+    BudgetManagerItem,
     GlobalAside,
     GlobalHeader
   },
-  props: {},
+  created() {
+    axios.get('/api/budget/ones?userId='+localGet('token').userId)
+        .then(response=>{
+          this.budgetList=response.data
+          console.log("show budgetList:")
+          console.log(this.budgetList)
+        })
+        .catch((error)=>{
+          ElMessage.error(error.toString())
+          console.log(error)
+        })
+  },
   setup() {
-    const state = reactive({
-      formData: {
-        date76380: null,
-        input45949: "科研",
-        input33006: "20150元",
-        input112528: "赵鑫",
-        input64599: "教务处",
-        input33198: "笔记本电脑",
-        input62136: "联想小新pro",
-        input83311: "5",
-        input93979: "4000元",
-        input40198: "插排",
-        input53544: "公牛5003",
-        input22054: "5",
-        input104872: "30",
-      },
-      rules: {},
+    // todo: 从后端接收当前用户的申请数组
+    const state=reactive({
+      budgetList:[]
     })
-    const instance = getCurrentInstance()
-    // const submitForm = () => {
-    //   instance.ctx.$refs['vForm'].validate(valid => {
-    //     if (!valid) return
-    //     //TODO: 提交表单
-    //   })
-    // }
-    const resetForm = () => {
-      instance.ctx.$refs['vForm'].resetFields()
-    }
-    return {
+    // let budgetList=reactive([
+    //   {
+    //     // 经费申请
+    //     applyId:1,
+    //     applyDate: "2022-05-18",
+    //     applyName: "经费申请名称",
+    //     applyType: "科研",
+    //     applyCategory: "常规类",
+    //     amountFrom:"1",
+    //     amountYear:"11",
+    //     applyAmount: "1",
+    //     applyUserId: "12",
+    //     programPrincipalId:"",
+    //     applyUnit: "11",
+    //     ifImport:"1",
+    //     applySeason: "1",
+    //     applyRemark:"1",
+    //
+    //     // 资产明细
+    //     detailAssetId:111,
+    //     detailAssetName: "",
+    //     storage:"",
+    //     detailAssetModel:"",
+    //     detailAssetSpec: "",
+    //     detailAssetCount: 11,
+    //     detailAssetUnit: "",
+    //     detailAssetPrice: "",
+    //     detailRemark:"",
+    //   },
+    // ])
+
+    return{
       ...toRefs(state),
-      resetForm
+      // budgetList,
     }
   }
 })
