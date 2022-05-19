@@ -1,5 +1,6 @@
 package buct.budgetsystem.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.*;
@@ -19,22 +20,18 @@ import lombok.*;
 @NoArgsConstructor
 public class DeclarationDetail extends Model<DeclarationDetail> {
     /**
-     * 主键id
+     * 资产编号
      */
-    @TableId
-    private Long detailId;
+    @TableId(type = IdType.AUTO)
+    private Integer detailAssetId;
     /**
      * 经费申请编号
      */
-    private String declarationId;
+    private Integer declarationId;
     /**
      * 经费申请名称
      */
     private String declarationName;
-    /**
-     * 资产编号
-     */
-    private String detailAssetId;
     /**
      * 资产名称
      */
@@ -56,9 +53,9 @@ public class DeclarationDetail extends Model<DeclarationDetail> {
      */
     private String detailAssetSpec;
     /**
-     * 资产存放地点id
+     * 资产存放地点
      */
-    private String storageId;
+    private String storageName;
     /**
      * 预算资产数量
      */
@@ -103,4 +100,24 @@ public class DeclarationDetail extends Model<DeclarationDetail> {
      * 备用字符
      */
     private String detailCustomDate2;
+
+    public DeclarationDetail(Integer detailAssetId,Integer declarationId, String declarationName,
+                              String detailAssetName, String unitId,
+                             String unitName, String detailAssetModel, String detailAssetSpec,
+                             String storageName, String detailAssetCount, String detailAssetUnit,
+                             String detailAssetPrice, String detailMark) {
+        this.declarationId = declarationId;
+        this.declarationName = declarationName;
+        this.detailAssetId = detailAssetId;
+        this.detailAssetName = detailAssetName;
+        this.unitId = unitId;
+        this.unitName = unitName;
+        this.detailAssetModel = detailAssetModel;
+        this.detailAssetSpec = detailAssetSpec;
+        this.storageName = storageName;
+        this.detailAssetCount = detailAssetCount;
+        this.detailAssetUnit = detailAssetUnit;
+        this.detailAssetPrice = detailAssetPrice;
+        this.detailMark = detailMark;
+    }
 }

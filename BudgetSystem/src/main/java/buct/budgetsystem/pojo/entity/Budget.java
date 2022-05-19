@@ -25,7 +25,7 @@ public class Budget extends Model<Budget> {
     /**
      * 经费编号
      */
-    private String declarationId;
+    private Integer declarationId;
     /**
      * 经费申请名称
      */
@@ -59,13 +59,9 @@ public class Budget extends Model<Budget> {
      */
     private DateTime declarationDate;
     /**
-     * 申请类别编号：常规类（01）大型仪器（02）科研零散类（03）
+     * 申请类别：常规类  大型仪器  科研零散类
      */
-    private String declarationCategoryId;
-    /**
-     * 申请类别名称
-     */
-    private String declarationCategoryName;
+    private String declarationCategory;
     /**
      * 申请理由
      */

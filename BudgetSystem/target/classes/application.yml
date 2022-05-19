@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 123456
+      url: jdbc:mysql://82.157.138.64:3306/YSCGGL?nullCatalogMeansCurrent=true
+      initial-size: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+  activiti:
+    database-schema-update: true
+    db-history-used: true
+    history-level: full
+    check-process-definitions: false
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+server:
+  port: 8080
+  servlet:
+    context-path: /api/
+    session:
+      timeout: 30s # Session的超时时间,默认最小1分钟,小于1分钟也是1分钟
+      cookie:
+        http-only: true # 浏览器脚本无法访问cookie 安全
+        secure: false #必须用https才能发送cookie
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      table-prefix: ys_

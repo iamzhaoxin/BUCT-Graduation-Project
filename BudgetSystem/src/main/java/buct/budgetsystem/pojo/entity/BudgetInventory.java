@@ -24,7 +24,7 @@ public class BudgetInventory extends Model<BudgetInventory> {
     /**
      * 经费编号
      */
-    private String declarationId;
+    private Integer declarationId;
     /**
      * 经费名称
      */
@@ -36,7 +36,7 @@ public class BudgetInventory extends Model<BudgetInventory> {
     /**
      * 预算资产编号
      */
-    private String detailAssetId;
+    private Integer detailAssetId;
     /**
      * 预算资产名称
      */

@@ -23,7 +23,7 @@ public class Flow extends Model<Flow> {
     /**
      * 经费申请编号
      */
-    private String declarationId;
+    private Integer declarationId;
     /**
      * 审核人id
      */

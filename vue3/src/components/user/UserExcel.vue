@@ -123,14 +123,14 @@
 </template>
 
 <script>
-import {onMounted, reactive, ref, toRefs} from 'vue'
+import {inject, onMounted, reactive, ref, toRefs} from 'vue'
 import axios from '@/utils/axios'
 import {ElMessage} from 'element-plus'
 
 export default {
   name: 'UserExcel',
   setup() {
-    let k=0
+    // let k=0
     const multipleTable = ref(null)
     const state = reactive({
       loading: false,
@@ -213,8 +213,10 @@ export default {
     const uploadSuccessHandler = () => {
       ElMessage.success("文件上传成功")
       // this.$forceUpdate()
-      k++;
-      console.log("文件上传成功，强制刷新ing"+k)
+      inject('refreshView')
+      // todo 尝试使用inject刷新
+      // k++;
+      // console.log("文件上传成功，强制刷新ing"+k)
     }
     const uploadErrorHandler = () => {
       ElMessage.error("上传文件失败")

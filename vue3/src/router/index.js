@@ -8,26 +8,64 @@ const router = createRouter({
             path: '/',
             redirect: 'login'
         },
+        // 登陆
         {
             path: '/login',
             name: 'login',
             component: () => import('../components/login/UserLogin')
         },
+        // 首页
         {
             path: '/home',
             name: 'home',
             component: () => import('../components/home/HomePage')
         },
+        // 申请管理-新增申请
         {
             path: '/budget/increase',
             name: 'increaseBudget',
             component: () => import('../components/budget/BudgetPage')
         },
+        // 申请管理-管理申请
+        {
+            path: '/budget/manager',
+            name: 'managerBudget',
+            component: () => import('../components/budget/BudgetManager')
+        },
+        // 申请审核-待审
+        {
+            path: '/budget/budgetAudit/wait',
+            name: 'BudgetAuditWait',
+            component: () => import('../components/budget/BudgetAuditWait')
+        },
+        // 申请审核-审核中
+        {
+            path: '/budget/budgetAudit/ing',
+            name: 'BudgetAuditIng',
+            component: () => import('../components/budget/BudgetAuditIng')
+        },
+        // 申请审核-审结
+        {
+            path: '/budget/budgetAudit/finished',
+            name: 'BudgetAuditFinished',
+            component: () => import('../components/budget/BudgetAuditFinished')
+        },
+        // 部门管理-职能
+        {
+            path: '/unit/manager',
+            name: 'unitManager',
+            component: () => import('../components/unit/UnitPage')
+        },
         {
             path: '/user/manager',
             name: 'userManager',
             component: () => import('../components/user/UserPage')
-        }
+        },
+        // {
+        //     path: '/flow/design',
+        //     name: 'flowDesign',
+        //     component: () => import('../components/activiti/ActivitiModule')
+        // }
     ],
 })
 

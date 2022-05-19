@@ -16,22 +16,22 @@
             <template #title>申请管理</template>
             <el-menu-item-group>
               <el-menu-item @click="$router.push('/budget/increase')" index="3-1-1">新增申请</el-menu-item>
-              <el-menu-item index="3-1-2">管理申请</el-menu-item>
+              <el-menu-item @click="$router.push('/budget/manager')" index="3-1-2">管理申请</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-sub-menu index=3-2>
             <template #title>申请审核</template>
             <el-menu-item-group>
-              <el-menu-item index="3-2-1">待审申请</el-menu-item>
-              <el-menu-item index="3-2-2">已审申请</el-menu-item>
-              <el-menu-item index="3-2-3">审结申请</el-menu-item>
+              <el-menu-item @click="$router.push('/budget/budgetAudit/wait')" index="3-2-1">待审申请</el-menu-item>
+              <el-menu-item @click="$router.push('/budget/budgetAudit/ing')" index="3-2-2">已审申请</el-menu-item>
+              <el-menu-item @click="$router.push('/budget/budgetAudit/finished')" index="3-2-3">审结申请</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-sub-menu index="3-3">
             <template #title>申请查询</template>
             <el-menu-item-group>
-              <el-menu-item index="3-3-1">个人申请查询</el-menu-item>
-              <el-menu-item index="3-3-2">部门申请查询</el-menu-item>
+              <el-menu-item @click="$router.push('/budget/budgetAudit/finished')" index="3-3-1">个人申请查询</el-menu-item>
+              <el-menu-item @click="$router.push('/budget/budgetAudit/ing')" index="3-3-2">部门申请查询</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-menu-item index="3-4">申请统计</el-menu-item>
@@ -45,7 +45,7 @@
           <el-sub-menu index=4-1>
             <template #title>部门管理</template>
             <el-menu-item-group>
-              <el-menu-item index="4-1-1">职能部门</el-menu-item>
+              <el-menu-item @click="$router.push('/unit/manager')" index="4-1-1">职能部门</el-menu-item>
               <el-menu-item index="4-1-2">其他部门</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
@@ -84,7 +84,7 @@
           <el-sub-menu index=5-3>
             <template #title>流程设置</template>
             <el-menu-item-group>
-              <el-menu-item index="5-3-1">流程</el-menu-item>
+              <el-menu-item @click="$router.push('/flow/design')" index="5-3-1">流程</el-menu-item>
               <el-menu-item index="5-3-2">审核人</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>

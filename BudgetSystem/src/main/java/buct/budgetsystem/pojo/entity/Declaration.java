@@ -1,9 +1,12 @@
 package buct.budgetsystem.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.*;
 import org.joda.time.DateTime;
+
+import java.util.Date;
 
 /**
  * 经费申请表
@@ -19,8 +22,8 @@ public class Declaration extends Model<Declaration> {
     /**
      * 经费申请编号
      */
-    @TableId
-    private String declarationId;
+    @TableId(type = IdType.AUTO)
+    private Integer declarationId;
     /**
      * 经费申请名称
      */
@@ -52,19 +55,15 @@ public class Declaration extends Model<Declaration> {
     /**
      * 申请日期
      */
-    private DateTime declarationDate;
+    private Date declarationDate;
     /**
      * 审批状态：未审（0）审核中（1）审核完结（2）驳回（3）采购执行（4）合同签订（5）到货验收（6）
      */
     private String declarationState;
     /**
-     * 申请类别编号：常规类（01）大型仪器（02）科研零散类（03）
+     * 申请类别：常规类  大型仪器  科研零散类
      */
-    private String declarationCategoryId;
-    /**
-     * 申请类别名称
-     */
-    private String declarationCategoryName;
+    private String declarationCategory;
     /**
      * 申请理由
      */
@@ -137,4 +136,33 @@ public class Declaration extends Model<Declaration> {
      * 备用字符
      */
     private DateTime declarationCustomDate2;
+
+    public Declaration(Integer declarationId, String declarationName, String declarationType, String unitId,
+                       String unitName, String userIdApply, String userNameApply, String userCellphoneApply,
+                       Date declarationDate, String declarationState, String declarationCategory,
+                       String declarationReason, Double declarationAmount, String unitPrincipalIdApply,
+                       String unitPrincipalNameApply, String declarationIsImport, String programPrincipalId,
+                       String programPrincipalName, String budgetSource, String budgetYear, String declarationRemark) {
+        this.declarationId = declarationId;
+        this.declarationName = declarationName;
+        this.declarationType = declarationType;
+        this.unitId = unitId;
+        this.unitName = unitName;
+        this.userIdApply = userIdApply;
+        this.userNameApply = userNameApply;
+        this.userCellphoneApply = userCellphoneApply;
+        this.declarationDate = declarationDate;
+        this.declarationState = declarationState;
+        this.declarationCategory = declarationCategory;
+        this.declarationReason = declarationReason;
+        this.declarationAmount = declarationAmount;
+        this.unitPrincipalIdApply = unitPrincipalIdApply;
+        this.unitPrincipalNameApply = unitPrincipalNameApply;
+        this.declarationIsImport = declarationIsImport;
+        this.programPrincipalId = programPrincipalId;
+        this.programPrincipalName = programPrincipalName;
+        this.budgetSource = budgetSource;
+        this.budgetYear = budgetYear;
+        this.declarationRemark = declarationRemark;
+    }
 }
