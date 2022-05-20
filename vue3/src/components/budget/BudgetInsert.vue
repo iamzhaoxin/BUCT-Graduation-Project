@@ -146,7 +146,7 @@
     </div>
     <br>
     <div class="static-content-item" style="float: right">
-<!--      todo-->
+<!--      todo 增加资产明细卡片-->
 <!--      <el-button type="warning" plain>增加资产明细卡片</el-button>-->
       <el-button type="info" plain>保存申请</el-button>
       <el-button type="success" @click="submitForm" plain>提交申请</el-button>

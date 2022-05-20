@@ -18,7 +18,7 @@
                 <el-upload
                     accept=".xls,.xlsx"
                     class="upload-demo"
-                    action="api/user/upload"
+                    action="/api/user/upload"
                     :limit="1"
                     :on-success="uploadSuccessHandler"
                     :on-error="uploadErrorHandler">
@@ -30,9 +30,6 @@
           <el-col :span="4">
             <el-button type="danger" @click="handleForbid">删除选中用户</el-button>
           </el-col>
-          <!--          <el-col :span="4"><div class="grid-content bg-purple-light" /></el-col>-->
-          <!--          <el-col :span="4"><div class="grid-content bg-purple" /></el-col>-->
-          <!--          <el-col :span="4"><div class="grid-content bg-purple-light" /></el-col>-->
         </el-row>
       </div>
     </template>
@@ -157,6 +154,7 @@ export default {
             //将分页数据保存
             state.tableData = response.data.records.filter(user => {
               user.userBirthdate = user.userBirthdate.slice(0, 10)
+              // todo 对角色编码和角色名称映射
               if (user.roleId === 0) {
                 user.roleId = '管理员'
               } else {

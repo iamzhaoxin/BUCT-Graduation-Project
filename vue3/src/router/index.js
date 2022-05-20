@@ -61,11 +61,11 @@ const router = createRouter({
             name: 'userManager',
             component: () => import('../components/user/UserPage')
         },
-        // {
-        //     path: '/flow/design',
-        //     name: 'flowDesign',
-        //     component: () => import('../components/activiti/ActivitiModule')
-        // }
+        {
+            path: '/flow/design',
+            name: 'flowDesign',
+            component: () => import('../components/flow/FlowManager')
+        },
     ],
 })
 

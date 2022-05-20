@@ -38,6 +38,8 @@ export default defineComponent({
     GlobalHeader
   },
   created() {
+    // 获得当前用户的所有申请
+    // todo：添加当前审批状态
     axios.get('/api/budget/ones?userId='+localGet('token').userId)
         .then(response=>{
           this.budgetList=response.data
@@ -50,44 +52,12 @@ export default defineComponent({
         })
   },
   setup() {
-    // todo: 从后端接收当前用户的申请数组
     const state=reactive({
       budgetList:[]
     })
-    // let budgetList=reactive([
-    //   {
-    //     // 经费申请
-    //     applyId:1,
-    //     applyDate: "2022-05-18",
-    //     applyName: "经费申请名称",
-    //     applyType: "科研",
-    //     applyCategory: "常规类",
-    //     amountFrom:"1",
-    //     amountYear:"11",
-    //     applyAmount: "1",
-    //     applyUserId: "12",
-    //     programPrincipalId:"",
-    //     applyUnit: "11",
-    //     ifImport:"1",
-    //     applySeason: "1",
-    //     applyRemark:"1",
-    //
-    //     // 资产明细
-    //     detailAssetId:111,
-    //     detailAssetName: "",
-    //     storage:"",
-    //     detailAssetModel:"",
-    //     detailAssetSpec: "",
-    //     detailAssetCount: 11,
-    //     detailAssetUnit: "",
-    //     detailAssetPrice: "",
-    //     detailRemark:"",
-    //   },
-    // ])
 
     return{
       ...toRefs(state),
-      // budgetList,
     }
   }
 })

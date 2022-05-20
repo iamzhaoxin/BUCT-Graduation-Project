@@ -77,7 +77,7 @@
           </el-col>
           <el-col :span="24" class="grid-cell">
             <el-form-item label="申请理由" prop="applySeason" class="label-right-align">
-              <el-input type="textarea" v-model="budgetData['declaration'].declarationReason" ></el-input>
+              <el-input type="textarea" v-model="budgetData['declaration'].declarationReason"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24" class="grid-cell">
@@ -127,14 +127,44 @@
           </el-col>
           <el-col :span="24" class="grid-cell">
             <el-form-item label="备注" prop="detailRemark" class="label-right-align">
-              <el-input type="textarea" v-model="budgetData['asset'].detailMark" ></el-input>
+              <el-input type="textarea" v-model="budgetData['asset'].detailMark"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12" class="grid-cell">
-            <el-button style="float: left" type="primary" size="large">审批状态： {{applyStatus}}</el-button>
-          </el-col>
-          <el-col :span="12" class="grid-cell">
-            <el-button style="float: right" type="danger" @click="deleteBudget" plain>撤销申请</el-button>
+
+          <el-col :span="24" class="grid-cell">
+            <el-button style="float: right;margin-right: 50px" type="success" @click="allowDialogFormVisible = true" plain>
+              通过申请
+            </el-button>
+            <el-dialog v-model="allowDialogFormVisible" title="审批意见">
+              <el-form :model="suggest.value">
+                <el-form-item>
+                  <el-input type="textarea" v-model="suggest.value" rows="5"></el-input>
+                </el-form-item>
+              </el-form>
+              <template #footer>
+                <span class="dialog-footer">
+                  <el-button @click="allowDialogFormVisible = false">取消</el-button>
+                  <el-button type="success" @click="allowBudget">通过</el-button>
+                </span>
+              </template>
+            </el-dialog>
+
+            <el-button style="float: right;margin-right: 100px" type="danger" @click="refuseDialogFormVisible = true" plain>
+              拒绝申请
+            </el-button>
+            <el-dialog v-model="refuseDialogFormVisible" title="审批意见">
+              <el-form :model="suggest.value">
+                <el-form-item>
+                  <el-input type="textarea" v-model="suggest.value" rows="5"></el-input>
+                </el-form-item>
+              </el-form>
+              <template #footer>
+                <span class="dialog-footer">
+                  <el-button @click="refuseDialogFormVisible = false">取消</el-button>
+                  <el-button type="danger" @click="refuseBudget">拒绝</el-button>
+                </span>
+              </template>
+            </el-dialog>
           </el-col>
 
         </el-row>
@@ -152,9 +182,10 @@
 import {reactive, toRef, toRefs} from "vue";
 import axios from "@/utils/axios";
 import {ElMessage} from "element-plus";
+import {localGet} from "@/utils";
 
 export default {
-  name: "BudgetManagerItem",
+  name: "BudgetAuditWaitItem",
   props: {
     budgetItem: {
       asset: {
@@ -173,12 +204,20 @@ export default {
         detailMark: String,
       },
       declaration: Object,
+      processInstanceId:String,
     }
   },
   setup(props) {
     const state = reactive({
       budgetData: toRef(props, "budgetItem"),
-      applyStatus:"",
+      allowDialogFormVisible: false,
+      refuseDialogFormVisible: false,
+      suggest: {
+        userId:localGet('token').userId,
+        processInstanceId:"",
+        status:"",
+        value:"",
+      },
       rules: {
         applyAmount: [{
           pattern: /^\d+(\.\d+)?$/,
@@ -220,16 +259,17 @@ export default {
       }],
     })
 
+    state.suggest.processInstanceId=state.budgetData['processInstanceId']
+    console.log("processInstanceId: "+state.suggest.processInstanceId)
     state.budgetData['declaration'].declarationDate.slice(0, 10)
     console.log("Item.Vue show:")
     console.log(state.budgetData.declaration.declarationDate)
 
-    getStatus()
-
-    function deleteBudget() {
-      axios.get('/api/budget/delete?declarationId=' + state.budgetData.declaration.declarationId)
+    function allowBudget() {
+      state.suggest.status="true"
+      axios.post('/api/flow/complete',state.suggest)
           .then(() => {
-            ElMessage.success("删除成功")
+            ElMessage.success("审批成功")
             location.reload();
           })
           .catch((error) => {
@@ -238,10 +278,12 @@ export default {
           })
     }
 
-    function getStatus(){
-      axios.get('/api/flow/status?declarationId=' + state.budgetData.declaration.declarationId)
-          .then((response) => {
-            state.applyStatus=response.data
+    function refuseBudget() {
+      state.suggest.status="false"
+      axios.post('/api/flow/complete',state.suggest)
+          .then(() => {
+            ElMessage.success("审批成功")
+            location.reload();
           })
           .catch((error) => {
             ElMessage.error(error.toString())
@@ -251,7 +293,8 @@ export default {
 
     return {
       ...toRefs(state),
-      deleteBudget,
+      allowBudget,
+      refuseBudget
     }
   }
 }

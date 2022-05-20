@@ -30,10 +30,6 @@ public class BudgetInventory extends Model<BudgetInventory> {
      */
     private String declarationName;
     /**
-     * 预算明细id
-     */
-    private int detailId;
-    /**
      * 预算资产编号
      */
     private Integer detailAssetId;
@@ -50,9 +46,9 @@ public class BudgetInventory extends Model<BudgetInventory> {
      */
     private String unitName;
     /**
-     * 资产存放地点id
+     * 资产存放地点
      */
-    private String storageId;
+    private String storage;
     /**
      * 预算资产型号
      */

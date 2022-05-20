@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.*;
 import org.joda.time.DateTime;
 
+import java.util.Date;
+
 
 /**
  * 经费预算表
@@ -21,7 +23,7 @@ public class Budget extends Model<Budget> {
      * 经费预算id
      */
     @TableId
-    private Long budgetId;
+    private Integer budgetId;
     /**
      * 经费编号
      */
@@ -57,7 +59,7 @@ public class Budget extends Model<Budget> {
     /**
      * 申请日期
      */
-    private DateTime declarationDate;
+    private Date declarationDate;
     /**
      * 申请类别：常规类  大型仪器  科研零散类
      */
@@ -122,4 +124,34 @@ public class Budget extends Model<Budget> {
      * 备用字符
      */
     private DateTime budgetCustomNum3;
+
+    public Budget(Integer budgetId, Integer declarationId,
+                  String declarationName, String declarationType,
+                  String unitId, String unitName,
+                  String userIdApply, String userNameApply, String userCellphoneApply,
+                  Date declarationDate, String declarationCategory, String declarationReason,
+                  Double declarationAmount, String unitPrincipalIdApply,
+                  String unitPrincipalNameApply, String programPrincipalId,
+                  String programPrincipalName, String budgetSource, String budgetYear, String budgetMark) {
+        this.budgetId = budgetId;
+        this.declarationId = declarationId;
+        this.declarationName = declarationName;
+        this.declarationType = declarationType;
+        this.unitId = unitId;
+        this.unitName = unitName;
+        this.userIdApply = userIdApply;
+        this.userNameApply = userNameApply;
+        this.userCellphoneApply = userCellphoneApply;
+        this.declarationDate = declarationDate;
+        this.declarationCategory = declarationCategory;
+        this.declarationReason = declarationReason;
+        this.declarationAmount = declarationAmount;
+        this.unitPrincipalIdApply = unitPrincipalIdApply;
+        this.unitPrincipalNameApply = unitPrincipalNameApply;
+        this.programPrincipalId = programPrincipalId;
+        this.programPrincipalName = programPrincipalName;
+        this.budgetSource = budgetSource;
+        this.budgetYear = budgetYear;
+        this.budgetMark = budgetMark;
+    }
 }

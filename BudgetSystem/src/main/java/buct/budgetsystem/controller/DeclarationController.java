@@ -4,18 +4,20 @@ import buct.budgetsystem.dao.UnitDao;
 import buct.budgetsystem.dao.UserDao;
 import buct.budgetsystem.pojo.entity.Declaration;
 import buct.budgetsystem.pojo.entity.DeclarationDetail;
+import buct.budgetsystem.pojo.entity.Flow;
 import buct.budgetsystem.pojo.vo.Result;
 import buct.budgetsystem.service.DeclarationDetailService;
 import buct.budgetsystem.service.DeclarationService;
+import buct.budgetsystem.service.FlowService;
 import buct.budgetsystem.service.UnitService;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -28,13 +30,15 @@ public class DeclarationController {
     private final UnitService unitService;
     private final UserDao userDao;
     private final UnitDao unitDao;
+    private final FlowService flowService;
 
-    public DeclarationController(DeclarationService declarationService, DeclarationDetailService declarationDetailService, UnitService unitService, UserDao userDao, UnitDao unitDao) {
+    public DeclarationController(DeclarationService declarationService, DeclarationDetailService declarationDetailService, UnitService unitService, UserDao userDao, UnitDao unitDao, FlowService flowService) {
         this.declarationService = declarationService;
         this.declarationDetailService = declarationDetailService;
         this.unitService = unitService;
         this.userDao = userDao;
         this.unitDao = unitDao;
+        this.flowService = flowService;
     }
 
 
@@ -63,11 +67,19 @@ public class DeclarationController {
                 null,declaration.getDeclarationId(), declaration.getDeclarationName(),
                 budgetData.getString("detailAssetName"), declaration.getUnitId(),declaration.getUnitName(),
                 budgetData.getString("detailAssetModel"),budgetData.getString("detailAssetSpec"),
-                budgetData.getString("storage"), budgetData.getString("detailAssetCount"),
-                budgetData.getString("detailAssetUnit"), budgetData.getString("detailAssetPrice"),
+                budgetData.getString("storage"), budgetData.getDouble("detailAssetCount"),
+                budgetData.getString("detailAssetUnit"), budgetData.getDouble("detailAssetPrice"),
                 budgetData.getString("detailRemark")
         );
         declarationDetailService.saveOrUpdate(declarationDetail);
+
+        // 开启审批流
+        flowService.startProcessInstance(declaration.getDeclarationId());
+
+        // 记录到Flow表
+        Flow flow=new Flow(null, declaration.getDeclarationId(),null,null,
+                new SimpleDateFormat("yyyy-MM-dd").format(new Date()),"提出申请","未审");
+        flowService.save(flow);
 
         return new Result(200,"success",null,null);
     }
@@ -77,6 +89,7 @@ public class DeclarationController {
         Integer assetId=declarationDetailService.getAssetIdByDeclarationId(declarationId);
         declarationService.removeById(declarationId);
         declarationDetailService.removeById(assetId);
+        flowService.removeByDeclarationId(declarationId);
         return new Result(200,"success",null,null);
     }
 
@@ -92,5 +105,7 @@ public class DeclarationController {
         }
         return new Result(200,"success",arrayList,null);
     }
+
+
 
 }

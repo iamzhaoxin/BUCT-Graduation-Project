@@ -19,7 +19,7 @@ public class Flow extends Model<Flow> {
      * 审核任务id
      */
     @TableId
-    private String flowId;
+    private Integer flowId;
     /**
      * 经费申请编号
      */
@@ -41,7 +41,7 @@ public class Flow extends Model<Flow> {
      */
     private String flowOpinion;
     /**
-     * 审核状态：n（n审批）0（驳回）
+     * 审核状态： 未审  审批中  驳回 通过审批
      */
     private String flowState;
 

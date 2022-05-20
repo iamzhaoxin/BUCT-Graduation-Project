@@ -59,7 +59,7 @@ public class DeclarationDetail extends Model<DeclarationDetail> {
     /**
      * 预算资产数量
      */
-    private String detailAssetCount;
+    private Double detailAssetCount;
     /**
      * 预算资产计量单位
      */
@@ -67,7 +67,7 @@ public class DeclarationDetail extends Model<DeclarationDetail> {
     /**
      * 预算资产的单价
      */
-    private String detailAssetPrice;
+    private Double detailAssetPrice;
     /**
      * 备注
      */
@@ -104,8 +104,8 @@ public class DeclarationDetail extends Model<DeclarationDetail> {
     public DeclarationDetail(Integer detailAssetId,Integer declarationId, String declarationName,
                               String detailAssetName, String unitId,
                              String unitName, String detailAssetModel, String detailAssetSpec,
-                             String storageName, String detailAssetCount, String detailAssetUnit,
-                             String detailAssetPrice, String detailMark) {
+                             String storageName, Double detailAssetCount, String detailAssetUnit,
+                             Double detailAssetPrice, String detailMark) {
         this.declarationId = declarationId;
         this.declarationName = declarationName;
         this.detailAssetId = detailAssetId;
