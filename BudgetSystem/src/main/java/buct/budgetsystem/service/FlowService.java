@@ -91,10 +91,15 @@ public class FlowService extends ServiceImpl<FlowDao, Flow> {
 
     public void startProcessInstance(Integer businessId) {
         Map<String, Object> map = new HashMap<>();
-        map.put("approver1", "2018040437");
-        map.put("approver2", "2018040438");
-        map.put("approver3", "2018040439");
-        map.put("approver4", "2018040440");
+//        map.put("approver1", "2018040437");
+//        map.put("approver2", "2018040438");
+//        map.put("approver3", "2018040439");
+//        map.put("approver4", "2018040440");
+        int index=1;
+        for(String userId:ProcessUsing.approverId){
+            String assignee="approver"+index;
+            map.put(assignee,userId);
+        }
         processEngine.getRuntimeService()
                 .startProcessInstanceByKey(ProcessUsing.process.get("key"), String.valueOf(businessId), map);
     }
@@ -200,7 +205,6 @@ public class FlowService extends ServiceImpl<FlowDao, Flow> {
             budgetInventory.setDetailAssetPrice(declarationDetail.getDetailAssetPrice());
             budgetInventory.setInventoryMark(declarationDetail.getDetailMark());
             budgetInventoryService.save(budgetInventory);
-            // todo 测试整个流程，看能否将数据加载到budget两张表
         }
     }
 }

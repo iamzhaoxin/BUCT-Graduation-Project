@@ -12,7 +12,7 @@
       </el-col>
       <el-col :span="3" class="grid-cell">
         <div class="static-content-item">
-          <el-button type="primary">待提交</el-button>
+          <el-button type="primary">待审</el-button>
         </div>
       </el-col>
       <el-col :span="3" class="grid-cell">
@@ -22,7 +22,7 @@
       </el-col>
       <el-col :span="3" class="grid-cell">
         <div class="static-content-item">
-          <el-button type="primary">被退回</el-button>
+          <el-button type="primary">被驳回</el-button>
         </div>
       </el-col>
       <el-col :span="3" class="grid-cell">
@@ -42,7 +42,7 @@
       <el-card style="{width: 100% !important}" shadow="never">
         <template #header>
           <div class="clear-fix">
-            <span>待提交</span>
+            <span>全部</span>
             <i class="float-right el-icon-arrow-down"></i>
           </div>
         </template>
@@ -52,66 +52,66 @@
             <tr>
               <td class="table-cell">
                 <div class="static-content-item">
-                  <div>物品名称</div>
+                  <div>预算申请名称</div>
                 </div>
               </td>
               <td class="table-cell">
                 <div class="static-content-item">
-                  <div>单价（元）</div>
+                  <div>申请金额</div>
                 </div>
               </td>
               <td class="table-cell">
                 <div class="static-content-item">
-                  <div>数量</div>
+                  <div>申请时间</div>
                 </div>
               </td>
               <td class="table-cell">
                 <div class="static-content-item">
-                  <div>总价</div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>测试数据</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>static text</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>static text</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>static text</div>
+                  <div>经费类别</div>
                 </div>
               </td>
             </tr>
             <tr>
               <td class="table-cell">
                 <div class="static-content-item">
-                  <div>测试数据</div>
+                  <div>笔记本电脑购置</div>
                 </div>
               </td>
               <td class="table-cell">
                 <div class="static-content-item">
-                  <div>static text</div>
+                  <div>5000元</div>
                 </div>
               </td>
               <td class="table-cell">
                 <div class="static-content-item">
-                  <div>static text</div>
+                  <div>2022-03-25</div>
                 </div>
               </td>
               <td class="table-cell">
                 <div class="static-content-item">
-                  <div>static text</div>
+                  <div>科研</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-cell">
+                <div class="static-content-item">
+                  <div>桌椅</div>
+                </div>
+              </td>
+              <td class="table-cell">
+                <div class="static-content-item">
+                  <div>100元</div>
+                </div>
+              </td>
+              <td class="table-cell">
+                <div class="static-content-item">
+                  <div>2022-04-16</div>
+                </div>
+              </td>
+              <td class="table-cell">
+                <div class="static-content-item">
+                  <div>教学</div>
                 </div>
               </td>
             </tr>

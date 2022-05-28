@@ -137,7 +137,7 @@ export default defineComponent({
   setup() {
     const state = reactive({
       formData: {
-        date76380: null,
+        date76380: "2022-04-16",
         input45949: "科研",
         input33006: "20150元",
         input112528: "赵鑫",

@@ -61,6 +61,7 @@ public class DeclarationController {
                 userDao.getUserNameById("programPrincipalId"),budgetData.getString("amountFrom"),
                 budgetData.getString("amountYear"),budgetData.getString("applyRemark")
         );
+        // 提交经费预算申请，得到返回值主键id（经费申请编号
         declarationService.saveOrUpdate(declaration);
 
         DeclarationDetail declarationDetail=new DeclarationDetail(

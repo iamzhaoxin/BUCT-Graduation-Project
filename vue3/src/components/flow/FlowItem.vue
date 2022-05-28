@@ -13,6 +13,7 @@
 
           <el-col :span="12" class="grid-cell">
             流程示意图:
+            <br><br><br><br><br><br><br><br><br><br>
             <div>
               <el-image :src="flowDetail.png"/>
             </div>
