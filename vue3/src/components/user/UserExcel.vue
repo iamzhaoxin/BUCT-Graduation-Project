@@ -90,22 +90,6 @@
           label="出生年月"
       >
       </el-table-column>
-      <!-- <el-table-column
-        label="操作"
-        width="100"
-      >
-        <template #default="scope">
-          <a style="cursor: pointer; margin-right: 10px" @confirm="handleSolve(scope.row)">解除禁用</a>
-          <el-popconfirm
-            title="确定禁用吗？"
-            @confirm="handleForbid(scope.row)"
-          >
-            <template #reference>
-              <a style="cursor: pointer">禁用账户</a>
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column> -->
     </el-table>
     <!--总数超过一页，再展示分页器-->
     <el-pagination

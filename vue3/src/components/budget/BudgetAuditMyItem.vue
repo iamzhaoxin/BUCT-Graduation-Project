@@ -77,7 +77,7 @@
           </el-col>
           <el-col :span="24" class="grid-cell">
             <el-form-item label="申请理由" prop="applySeason" class="label-right-align">
-              <el-input type="textarea" v-model="budgetData['declaration'].declarationReason" ></el-input>
+              <el-input type="textarea" v-model="budgetData['declaration'].declarationReason"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24" class="grid-cell">
@@ -127,11 +127,11 @@
           </el-col>
           <el-col :span="24" class="grid-cell">
             <el-form-item label="备注" prop="detailRemark" class="label-right-align">
-              <el-input type="textarea" v-model="budgetData['asset'].detailMark" ></el-input>
+              <el-input type="textarea" v-model="budgetData['asset'].detailMark"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12" class="grid-cell">
-            <el-button style="float: left" type="primary" size="large">审批状态： {{applyStatus}}</el-button>
+            <el-button style="float: left" type="primary" size="large">审批状态： {{ applyStatus }}</el-button>
           </el-col>
           <el-col :span="12" class="grid-cell">
             <el-button style="float: right" type="danger" @click="deleteBudget" plain>撤销申请</el-button>
@@ -154,7 +154,7 @@ import axios from "@/utils/axios";
 import {ElMessage} from "element-plus";
 
 export default {
-  name: "BudgetManagerItem",
+  name: "BudgetAuditMyItem",
   props: {
     budgetItem: {
       asset: {
@@ -177,9 +177,9 @@ export default {
   },
   setup(props) {
     const state = reactive({
-      showing:true,
+      showing: true,
       budgetData: toRef(props, "budgetItem"),
-      applyStatus:"",
+      applyStatus: "",
       rules: {
         applyAmount: [{
           pattern: /^\d+(\.\d+)?$/,
@@ -239,13 +239,14 @@ export default {
           })
     }
 
-    function getStatus(){
+    function getStatus() {
       axios.get('/api/flow/status?declarationId=' + state.budgetData.declaration.declarationId)
           .then((response) => {
-            state.applyStatus=response.data
-            if(state.applyStatus==="审批通过" || state.applyStatus ==="驳回"){
-              state.showing=false
-            }
+            state.applyStatus = response.data
+            // console.log("finished test:" + state.applyStatus)
+            //   if(state.applyStatus ==="未审" || state.applyStatus ==="审批中"){
+            //   state.showing = false
+            // }
           })
           .catch((error) => {
             ElMessage.error(error.toString())

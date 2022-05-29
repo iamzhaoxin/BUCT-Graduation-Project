@@ -18,13 +18,13 @@ const router = createRouter({
         {
             path: '/home',
             name: 'home',
-            component: () => import('../components/home/HomePage')
+            component: () => import('../components/home/HomeDashboard')
         },
         // 申请管理-新增申请
         {
             path: '/budget/increase',
             name: 'increaseBudget',
-            component: () => import('../components/budget/BudgetPage')
+            component: () => import('../components/budget/BudgetInsert')
         },
         // 申请管理-管理申请
         {
@@ -38,33 +38,38 @@ const router = createRouter({
             name: 'BudgetAuditWait',
             component: () => import('../components/budget/BudgetAuditWait')
         },
-        // 申请审核-审核中
-        {
-            path: '/budget/budgetAudit/ing',
-            name: 'BudgetAuditIng',
-            component: () => import('../components/budget/BudgetAuditIng')
-        },
         // 申请审核-审结
         {
             path: '/budget/budgetAudit/finished',
             name: 'BudgetAuditFinished',
             component: () => import('../components/budget/BudgetAuditFinished')
         },
+        // 申请查询-个人
+        {
+            path: '/budget/budgetAudit/myaudit',
+            name: 'BudgetAuditMy',
+            component: () => import('../components/budget/BudgetAuditMy')
+        },
         // 部门管理-职能
         {
             path: '/unit/manager',
             name: 'unitManager',
-            component: () => import('../components/unit/UnitPage')
+            component: () => import('../components/unit/UnitManager')
         },
         {
             path: '/user/manager',
             name: 'userManager',
-            component: () => import('../components/user/UserPage')
+            component: () => import('../components/user/UserExcel')
         },
         {
             path: '/flow/design',
             name: 'flowDesign',
             component: () => import('../components/flow/FlowManager')
+        },
+        {
+          path: '/file',
+            name:'fileDownload',
+            component:()=>import('../components/other/FileManager')
         },
     ],
 })

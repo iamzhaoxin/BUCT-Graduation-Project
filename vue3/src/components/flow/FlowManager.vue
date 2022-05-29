@@ -1,38 +1,22 @@
 <template>
-  <el-container style="height: 100%">
-    <el-aside>
-      <GlobalAside/>
-    </el-aside>
-    <el-container>
-      <el-header class="GlobalHeader">
-        <GlobalHeader/>
-      </el-header>
-      <el-main>
+
+  <el-upload
+      accept=".zip"
+      class="upload-demo"
+      action="/api/flow/upload"
+      :limit="1"
+      :on-success="uploadSuccessHandler"
+      :on-error="uploadErrorHandler">
+    <el-button type="success" size="large">点击上传自定义流程(zip压缩包文件名即为流程名称)</el-button>
+  </el-upload>
 
 
-        <el-upload
-            accept=".zip"
-            class="upload-demo"
-            action="/api/flow/upload"
-            :limit="1"
-            :on-success="uploadSuccessHandler"
-            :on-error="uploadErrorHandler">
-          <el-button type="success" size="large">点击上传自定义流程(zip压缩包文件名即为流程名称)</el-button>
-        </el-upload>
-
-
-        <div v-for="(flowItem,index) of flowList" :key="index">
-          <FlowItem :flowItem="flowItem" :usingProcessId="usingProcessId"/>
-        </div>
-
-      </el-main>
-    </el-container>
-  </el-container>
+  <div v-for="(flowItem,index) of flowList" :key="index">
+    <FlowItem :flowItem="flowItem" :usingProcessId="usingProcessId"/>
+  </div>
 </template>
 
 <script>
-import GlobalAside from "@/components/page/GlobalAside";
-import GlobalHeader from "@/components/page/GlobalHeader";
 import FlowItem from "@/components/flow/FlowItem";
 import axios from "@/utils/axios";
 import {ElMessage} from "element-plus";
@@ -41,8 +25,6 @@ import {reactive, toRefs} from "vue";
 export default {
   name: "FlowManager",
   components: {
-    GlobalAside,
-    GlobalHeader,
     FlowItem,
   },
   created() {

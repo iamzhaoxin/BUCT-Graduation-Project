@@ -2,8 +2,37 @@
   <el-form :model="formData" ref="vForm" :rules="rules" label-position="left" label-width="80px"
            style="height: 100%" @submit.prevent>
     <div class="tab-container" style="height: 100%">
-      <el-tabs style="height: 100%" v-model="tab115121ActiveTab" type="border-card">
+      <el-tabs style="height: 100%" type="border-card">
+
+        <el-tab-pane label="概览">
+
+          <el-table
+              :data="tableData"
+              tooltip-effect="dark"
+              style="width: 100%">
+            <el-table-column
+                prop="statu"
+                label="状态"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="declaration.declarationName"
+                label="项目名称"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="['declaration'].declarationDate"
+                label="申报日期"
+            >
+            </el-table-column>
+          </el-table>
+
+
+        </el-tab-pane>
+
         <el-tab-pane name="tab1" label="待处理">
+
+
           <el-row>
             <el-col :span="6" class="grid-cell">
               <div class="static-content-item">
@@ -21,9 +50,11 @@
               </div>
             </el-col>
           </el-row>
+
           <div class="static-content-item">
             <el-divider direction="horizontal"></el-divider>
           </div>
+
           <el-row>
             <el-col :span="6" class="grid-cell">
               <div class="static-content-item">
@@ -101,60 +132,8 @@
               </div>
             </el-col>
           </el-row>
-        </el-tab-pane>
-        <el-tab-pane name="tab-pane-66077" label="已处理">
-          <el-row>
-            <el-col :span="6" class="grid-cell">
-              <div class="static-content-item">
-                <div>任务状态</div>
-              </div>
-            </el-col>
-            <el-col :span="12" class="grid-cell">
-              <div class="static-content-item">
-                <div>任务名称</div>
-              </div>
-            </el-col>
-            <el-col :span="6" class="grid-cell">
-              <div class="static-content-item">
-                <div>申报日期</div>
-              </div>
-            </el-col>
-          </el-row>
-          <div class="static-content-item">
-            <el-divider direction="horizontal"></el-divider>
-          </div>
-          <el-row>
-            <el-col :span="6" class="grid-cell">
-              <div class="static-content-item">
-                <div>审批中</div>
-              </div>
-            </el-col>
-            <el-col :span="12" class="grid-cell">
-              <div class="static-content-item">
-                <div>财政测试项目</div>
-              </div>
-            </el-col>
-            <el-col :span="6" class="grid-cell">
-              <div class="static-content-item">
-                <div>2022-03-15</div>
-              </div>
-            </el-col>
-            <el-col :span="6" class="grid-cell">
-              <div class="static-content-item">
-                <div>已通过</div>
-              </div>
-            </el-col>
-            <el-col :span="12" class="grid-cell">
-              <div class="static-content-item">
-                <div>行政测试项目</div>
-              </div>
-            </el-col>
-            <el-col :span="6" class="grid-cell">
-              <div class="static-content-item">
-                <div>2022-03-10</div>
-              </div>
-            </el-col>
-          </el-row>
+
+
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -167,32 +146,57 @@ import {
   defineComponent,
   toRefs,
   reactive,
-  getCurrentInstance
 }
   from 'vue'
+import axios from "@/utils/axios";
+import {localGet} from "@/utils";
+import {ElMessage} from "element-plus";
 export default defineComponent({
   components: {},
   props: {},
+  created() {
+    // 获得当前用户的所有申请
+    // todo：添加当前审批状态
+    axios.get('/api/budget/ones?userId='+localGet('token').userId)
+        .then(response=>{
+          this.tableData=response.data
+
+
+          this.tableData.forEach((budgetItem)=>{
+            budgetItem.declaration.declarationDate=budgetItem.declaration.declarationDate.slice(0, 10)
+            let declarationId=budgetItem.declaration.declarationId
+            axios.get('/api/flow/status?declarationId=' + declarationId)
+                .then((response) => {
+                  budgetItem['statu']=response.data
+                })
+                .catch((error) => {
+                  ElMessage.error(error.toString())
+                  console.log(error)
+                })
+          })
+
+          this.tableData=this.tableData.filter(item=>{
+            if(item.statu==="未审"||item['statu']==="审批中"){
+              return null;
+            }else{
+              return item
+            }
+          })
+
+        })
+        .catch((error)=>{
+          ElMessage.error(error.toString())
+          console.log(error)
+        })
+
+  },
   setup() {
     const state = reactive({
-      formData: {},
-      rules: {},
-      'tab115121ActiveTab': 'tab1',
+      tableData:[],
+      loading: false,
     })
-    const instance = getCurrentInstance()
-    const submitForm = () => {
-      instance.ctx.$refs['vForm'].validate(valid => {
-        if (!valid) return
-        //TODO: 提交表单
-      })
-    }
-    const resetForm = () => {
-      instance.ctx.$refs['vForm'].resetFields()
-    }
     return {
       ...toRefs(state),
-      submitForm,
-      resetForm
     }
   }
 })

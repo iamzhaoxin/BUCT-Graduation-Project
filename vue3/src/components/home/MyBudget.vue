@@ -2,123 +2,11 @@
   <el-form :model="formData" ref="vForm" :rules="rules" label-position="left" label-width="80px"
            size="default" @submit.prevent>
     <div class="static-content-item">
-      <h1>我的预算</h1>
+      <div style="font-size: 30px">全部申请</div>
     </div>
-    <el-row>
-      <el-col :span="3" class="grid-cell">
-        <div class="static-content-item">
-          <el-button type="primary">全部</el-button>
-        </div>
-      </el-col>
-      <el-col :span="3" class="grid-cell">
-        <div class="static-content-item">
-          <el-button type="primary">待审</el-button>
-        </div>
-      </el-col>
-      <el-col :span="3" class="grid-cell">
-        <div class="static-content-item">
-          <el-button type="primary">审批中</el-button>
-        </div>
-      </el-col>
-      <el-col :span="3" class="grid-cell">
-        <div class="static-content-item">
-          <el-button type="primary">被驳回</el-button>
-        </div>
-      </el-col>
-      <el-col :span="3" class="grid-cell">
-      </el-col>
-      <el-col :span="3" class="grid-cell">
-      </el-col>
-      <el-col :span="3" class="grid-cell">
-      </el-col>
-      <el-col :span="3" class="grid-cell">
-        <div class="static-content-item">
-          <el-button type="info">查询</el-button>
-        </div>
-      </el-col>
-    </el-row>
     <br>
     <div class="card-container">
-      <el-card style="{width: 100% !important}" shadow="never">
-        <template #header>
-          <div class="clear-fix">
-            <span>全部</span>
-            <i class="float-right el-icon-arrow-down"></i>
-          </div>
-        </template>
-        <div class="table-container">
-          <table class="table-layout">
-            <tbody>
-            <tr>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>预算申请名称</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>申请金额</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>申请时间</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>经费类别</div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>笔记本电脑购置</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>5000元</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>2022-03-25</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>科研</div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>桌椅</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>100元</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>2022-04-16</div>
-                </div>
-              </td>
-              <td class="table-cell">
-                <div class="static-content-item">
-                  <div>教学</div>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </el-card>
+      <BudgetAuditMy/>
     </div>
   </el-form>
 
@@ -132,8 +20,9 @@ import {
   getCurrentInstance
 }
   from 'vue'
+import BudgetAuditMy from "@/components/budget/BudgetAuditMy";
 export default defineComponent({
-  components: {},
+  components: {BudgetAuditMy},
   props: {},
   setup() {
     const state = reactive({

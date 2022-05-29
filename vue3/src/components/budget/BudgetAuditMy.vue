@@ -2,13 +2,13 @@
 
 <template>
   <div v-for="(budgetItem,index) of budgetList" :key="index">
-    <BudgetManagerItem :budgetItem="budgetItem"/>
+    <BudgetAuditMyItem :budgetItem="budgetItem"/>
   </div>
 </template>
 
 <script>
 
-import BudgetManagerItem from "@/components/budget/BudgetManagerItem";
+import BudgetAuditMyItem from "@/components/budget/BudgetAuditMyItem";
 import {
   defineComponent, reactive, toRefs,
 }
@@ -17,9 +17,9 @@ import axios from "@/utils/axios";
 import {localGet} from "@/utils";
 import {ElMessage} from "element-plus";
 export default defineComponent({
-  name: "BudgetManager",
+  name: "BudgetAuditMy",
   components: {
-    BudgetManagerItem,
+    BudgetAuditMyItem,
   },
   created() {
     // 获得当前用户的所有申请

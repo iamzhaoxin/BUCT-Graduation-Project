@@ -12,22 +12,22 @@
         <el-row>
           <el-col :span="6" class="grid-cell">
             <div class="static-content-item">
-              <el-button type="info">新增申请</el-button>
+              <el-button @click="$router.push('/budget/increase')" type="info">新增申请</el-button>
             </div>
           </el-col>
           <el-col :span="6" class="grid-cell">
             <div class="static-content-item">
-              <el-button type="warning">待审申请</el-button>
+              <el-button @click="$router.push('/budget/budgetAudit/wait')" type="warning">待审申请</el-button>
             </div>
           </el-col>
           <el-col :span="6" class="grid-cell">
             <div class="static-content-item">
-              <el-button type="success">个人查询</el-button>
+              <el-button @click="$router.push('/budget/budgetAudit/finished')" type="primary">审结申请</el-button>
             </div>
           </el-col>
           <el-col :span="6" class="grid-cell">
             <div class="static-content-item">
-              <el-button type="primary">申请统计</el-button>
+              <el-button @click="$router.push('/budget/budgetAudit/myaudit')" type="success">个人查询</el-button>
             </div>
           </el-col>
         </el-row>
@@ -35,9 +35,19 @@
         <el-row>
           <el-col :span="6" class="grid-cell">
             <div class="static-content-item">
-              <el-button type="danger">用户管理</el-button>
+              <el-button @click="$router.push('/user/manager')" type="danger">用户管理</el-button>
             </div>
           </el-col>
+<!--          <el-col :span="6" class="grid-cell">-->
+<!--            <div class="static-content-item">-->
+<!--              <el-button @click="$router.push('/user/manager')" type="danger">部门管理</el-button>-->
+<!--            </div>-->
+<!--          </el-col>-->
+<!--          <el-col :span="6" class="grid-cell">-->
+<!--            <div class="static-content-item">-->
+<!--              <el-button @click="$router.push('/user/manager')" type="danger">角色管理</el-button>-->
+<!--            </div>-->
+<!--          </el-col>-->
         </el-row>
       </el-card>
     </div>

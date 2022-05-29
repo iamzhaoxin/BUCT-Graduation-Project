@@ -98,6 +98,8 @@ public class FlowService extends ServiceImpl<FlowDao, Flow> {
         int index=1;
         for(String userId:ProcessUsing.approverId){
             String assignee="approver"+index;
+            System.out.println(assignee);
+            index++;
             map.put(assignee,userId);
         }
         processEngine.getRuntimeService()

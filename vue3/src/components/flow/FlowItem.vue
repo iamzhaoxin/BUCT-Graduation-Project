@@ -13,10 +13,7 @@
 
           <el-col :span="12" class="grid-cell">
             流程示意图:
-            <br><br><br><br><br><br><br><br><br><br>
-            <div>
-              <el-image :src="flowDetail.png"/>
-            </div>
+            <div><img height="400" width="500" v-bind:src="flowDetail.png"></div>
           </el-col>
 
           <el-col :span="12" class="grid-cell">
@@ -47,7 +44,28 @@
           <!-- 启用流程（已启用）、删除流程、设置流程-->
           <el-col :span="24" class="grid-cell">
             <el-button style="float: right;margin-right: 20px" type="success" @click="useFlow" plain>{{useProcessView}}</el-button>
-            <el-button style="float: right;margin-right: 50px" type="primary" @click="setFlow" plain>设置流程</el-button>
+
+            <el-button style="float: right;margin-right: 50px" type="primary" @click="refuseDialogFormVisible = true" plain>设置流程</el-button>
+            <el-dialog v-model="refuseDialogFormVisible" title="请输入审批人工号">
+              <el-form :model="approver">
+                <el-form-item label="一级审批人" >
+                  <el-input type="number" v-model="approver[0]" rows="5"></el-input>
+                </el-form-item>
+                <el-form-item label="二级审批人" >
+                  <el-input type="number" v-model="approver[1]" rows="5"></el-input>
+                </el-form-item>
+                <el-form-item label="三级审批人" >
+                  <el-input type="number" v-model="approver[2]" rows="5"></el-input>
+                </el-form-item>
+              </el-form>
+              <template #footer>
+                <span class="dialog-footer">
+                  <el-button @click="refuseDialogFormVisible = false">取消</el-button>
+                  <el-button type="success" @click="setFlow">确认</el-button>
+                </span>
+              </template>
+            </el-dialog>
+
             <el-button style="float: right;margin-right: 50px" type="danger" @click="deleteFlow" plain>删除流程</el-button>
           </el-col>
         </el-row>
@@ -72,7 +90,7 @@ export default {
       name: String,
       key: String,
       reversion: String,
-      png: File,
+      png: String,
       bpmn: File,
     },
     usingProcessId:String,
@@ -82,10 +100,14 @@ export default {
       flowDetail: toRef(props, "flowItem"),
       usingProcessId:toRef(props, "usingProcessId"),
       useProcessView:"启用流程",
+      refuseDialogFormVisible:false,
+      approver:['','',''],
     })
     if(state.flowDetail.id===state.usingProcessId){
       state.useProcessView="已启用"
     }
+    state.flowDetail.png="/"+state.flowDetail.name+".png"
+    console.log(state.flowDetail.png)
 
     function useFlow() {
       axios.get('/api/flow/use?id=' + state.flowDetail.id)
@@ -101,8 +123,12 @@ export default {
 
 
     function setFlow() {
+      state.refuseDialogFormVisible=false
       // 输入各个负责人的工号，发送给后端进行匹配
-      //todo 后续可以升级为，输入工号或角色，拥有此角色的所有用户都可以审批
+      console.log("set flow")
+      console.log(state.approver)
+      ElMessage.success("设置成功")
+      //默认审批人：2018040437
     }
 
     function deleteFlow() {

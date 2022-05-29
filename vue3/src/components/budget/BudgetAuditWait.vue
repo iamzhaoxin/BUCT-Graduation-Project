@@ -1,27 +1,13 @@
 
 
 <template>
-  <el-container style="height: 100%">
-    <el-aside>
-      <GlobalAside/>
-    </el-aside>
-    <el-container>
-      <el-header class="GlobalHeader">
-        <GlobalHeader/>
-      </el-header>
-      <el-main>
-        <div v-for="(budgetItem,index) of budgetList" :key="index">
-          <BudgetAuditWaitItem :budgetItem="budgetItem"/>
-        </div>
-      </el-main>
-    </el-container>
-  </el-container>
+  <div v-for="(budgetItem,index) of budgetList" :key="index">
+    <BudgetAuditWaitItem :budgetItem="budgetItem"/>
+  </div>
 </template>
 
 <script>
 
-import GlobalAside from "@/components/page/GlobalAside";
-import GlobalHeader from "@/components/page/GlobalHeader";
 import BudgetAuditWaitItem from "@/components/budget/BudgetAuditWaitItem";
 import {
   defineComponent, reactive, toRefs,
@@ -34,14 +20,15 @@ export default defineComponent({
   name: "BudgetAuditWait",
   components: {
     BudgetAuditWaitItem,
-    GlobalAside,
-    GlobalHeader
   },
   created() {
     // 查询当前用户需要审批的申请
     axios.get('/api/flow/task?userId='+localGet('token').userId)
         .then(response=>{
           this.budgetList=response.data
+          if(this.budgetList.length===0){
+            ElMessage.success("暂无需要您审批的审评")
+          }
           console.log("show budgetList:")
           console.log(this.budgetList)
         })

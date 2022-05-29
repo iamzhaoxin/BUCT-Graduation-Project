@@ -86,6 +86,7 @@ public class FlowController {
     @GetMapping("/use")
     public Result useProcess(@RequestParam String id) {
         ProcessDefinition processDefinition = flowService.getProcessById(id);
+        new ProcessUsing();
         ProcessUsing.setProcess(processDefinition.getId(), processDefinition.getName(), processDefinition.getKey(), String.valueOf(processDefinition.getVersion()));
         return new Result(200, "选择流程成功", null, null);
     }
