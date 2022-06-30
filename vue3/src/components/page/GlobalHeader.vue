@@ -52,6 +52,8 @@ export default {
   width: min-content;
   padding-top: 15px;
   padding-left: 30px;
+  font-family: 华文行楷,system-ui;
+  font-size: 40px;
 }
 .user {
   padding-top: 15px;

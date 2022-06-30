@@ -24,31 +24,31 @@ const router = createRouter({
         {
             path: '/budget/increase',
             name: 'increaseBudget',
-            component: () => import('../components/budget/BudgetInsert')
+            component: () => import('../components/budget/BudgetPage')
         },
-        // 申请管理-管理申请
+        // 申请管理-在途申请
         {
             path: '/budget/manager',
             name: 'managerBudget',
-            component: () => import('../components/budget/BudgetManager')
+            component: () => import('../components/budget/BudgetManagerPage')
         },
         // 申请审核-待审
         {
             path: '/budget/budgetAudit/wait',
             name: 'BudgetAuditWait',
-            component: () => import('../components/budget/BudgetAuditWait')
+            component: () => import('../components/budget/BudgetAuditWaitPage')
         },
         // 申请审核-审结
         {
             path: '/budget/budgetAudit/finished',
             name: 'BudgetAuditFinished',
-            component: () => import('../components/budget/BudgetAuditFinished')
+            component: () => import('../components/budget/BudgetAuditFinishedPage')
         },
         // 申请查询-个人
         {
             path: '/budget/budgetAudit/myaudit',
             name: 'BudgetAuditMy',
-            component: () => import('../components/budget/BudgetAuditMy')
+            component: () => import('../components/budget/BudgetAuditMyPage')
         },
         // 部门管理-职能
         {
@@ -59,7 +59,7 @@ const router = createRouter({
         {
             path: '/user/manager',
             name: 'userManager',
-            component: () => import('../components/user/UserExcel')
+            component: () => import('../components/user/UserPage')
         },
         {
             path: '/flow/design',
@@ -94,5 +94,7 @@ router.beforeEach((to, from, next) => {
         next();
     }
 })
+
+
 
 export default router

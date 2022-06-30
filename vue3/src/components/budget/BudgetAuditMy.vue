@@ -1,6 +1,7 @@
 
 
 <template>
+
   <div v-for="(budgetItem,index) of budgetList" :key="index">
     <BudgetAuditMyItem :budgetItem="budgetItem"/>
   </div>
@@ -16,10 +17,14 @@ import {
 import axios from "@/utils/axios";
 import {localGet} from "@/utils";
 import {ElMessage} from "element-plus";
+// import GlobalAside from "@/components/page/GlobalAside";
+// import GlobalHeader from "@/components/page/GlobalHeader";
 export default defineComponent({
   name: "BudgetAuditMy",
   components: {
     BudgetAuditMyItem,
+    // GlobalAside,
+    // GlobalHeader
   },
   created() {
     // 获得当前用户的所有申请

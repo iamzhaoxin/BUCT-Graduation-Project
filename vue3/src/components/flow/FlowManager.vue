@@ -1,19 +1,32 @@
 <template>
 
-  <el-upload
-      accept=".zip"
-      class="upload-demo"
-      action="/api/flow/upload"
-      :limit="1"
-      :on-success="uploadSuccessHandler"
-      :on-error="uploadErrorHandler">
-    <el-button type="success" size="large">点击上传自定义流程(zip压缩包文件名即为流程名称)</el-button>
-  </el-upload>
+  <el-container style="height: 100%">
+    <el-aside>
+      <GlobalAside/>
+    </el-aside>
+    <el-container>
+      <el-header class="GlobalHeader">
+        <GlobalHeader/>
+      </el-header>
+      <el-main>  <el-upload
+          accept=".zip"
+          class="upload-demo"
+          action="/api/flow/upload"
+          :limit="1"
+          :on-success="uploadSuccessHandler"
+          :on-error="uploadErrorHandler">
+        <el-button type="success" size="large">点击上传自定义流程(zip压缩包文件名即为流程名称)</el-button>
+      </el-upload>
 
 
-  <div v-for="(flowItem,index) of flowList" :key="index">
-    <FlowItem :flowItem="flowItem" :usingProcessId="usingProcessId"/>
-  </div>
+        <div v-for="(flowItem,index) of flowList" :key="index">
+          <FlowItem :flowItem="flowItem" :usingProcessId="usingProcessId"/>
+        </div>
+      </el-main>
+    </el-container>
+  </el-container>
+
+
 </template>
 
 <script>
@@ -21,11 +34,15 @@ import FlowItem from "@/components/flow/FlowItem";
 import axios from "@/utils/axios";
 import {ElMessage} from "element-plus";
 import {reactive, toRefs} from "vue";
+import GlobalAside from "@/components/page/GlobalAside";
+import GlobalHeader from "@/components/page/GlobalHeader";
 
 export default {
   name: "FlowManager",
   components: {
     FlowItem,
+    GlobalHeader,
+    GlobalAside,
   },
   created() {
     // 获得所有流程的 id, name, key, reversion, png, bpmn
